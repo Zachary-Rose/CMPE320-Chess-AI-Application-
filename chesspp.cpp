@@ -1,7 +1,7 @@
 #include "chesspp.h"
 
 chesspp::chesspp(QWidget *parent)
-    : QMainWindow(parent)
+  : QMainWindow(parent)
 {
-    ui.setupUi(this);
+  ui.setupUi(this);
 }

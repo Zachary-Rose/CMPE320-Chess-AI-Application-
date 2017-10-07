@@ -45,6 +45,9 @@
     <ClCompile Include="GeneratedFiles\qrc_chesspp.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="chesspp.h">
@@ -60,6 +63,9 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_chesspp.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
