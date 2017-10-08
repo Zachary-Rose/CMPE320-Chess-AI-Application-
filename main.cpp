@@ -1,14 +1,42 @@
 // LOCAL INCLUDES
 #include "chesspp.h"
 #include "common.h"
+#include <iostream>
+#include <cstdlib>
 
 // Qt INCLUDES
 #include <QtWidgets/QApplication>
 
-Logger chessPPLogger(TRACE);
+// global logger
+Logger chessPPLogger(LOG_LEVEL_TRACE);
+
+// writes end of log file on application close
+void closeLogger(void)
+{
+  chessPPLogger.WriteLogHTMLFooter();
+  std::cout << "closeLogger()" << std::endl;
+}
+
+void initialize()
+{
+  // open logfile for writing
+  try
+  {
+    chessPPLogger.OpenLogFileForWriting();
+  }
+  catch (FileException &fe)
+  {
+    std::cout << fe.what() << std::endl;
+  }
+
+  // register Logger::WriteLogHTMLFooter() to run on exit
+  std::at_quick_exit(closeLogger);
+}
 
 int main(int argc, char *argv[])
 {
+  initialize();
+
   // silly logger testing code :)
   LOG_TRACE("Hello");
   LOG_INFO("To");
@@ -16,8 +44,10 @@ int main(int argc, char *argv[])
   LOG_ERROR("Buckhorn");
   LOG_FATAL("!");
 
+  LOG_TRACE("Logger sucessfully initialized.")
   QApplication a(argc, argv);
   chesspp w;
   w.show();
-  return a.exec();
+  int retVal = a.exec();
+  quick_exit(retVal);
 }

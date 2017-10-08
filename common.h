@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+#include <fstream>
 
 #define LOG_TRACE(message) \
 { \
@@ -27,14 +27,36 @@
   chessPPLogger.LogFatal(message, __FILE__, __LINE__); \
 }
 
+// exception class for the group of errors related to file IO
+class FileException : public std::exception
+{
+public:
+  FileException()
+  {
+    this->message = "File IO error.";
+  }
 
+  FileException(const std::string message)
+  {
+    this->message = message;
+  }
+
+  std::string what()
+  {
+    return this->message;
+  }
+private:
+  std::string message;
+};
+
+// what level should we log at?
 enum LOG_LEVEL
 {
-  TRACE = 0,
-  INFO = 1,
-  WARNING = 2,
-  ERROR = 3,
-  FATAL = 4
+  LOG_LEVEL_TRACE = 0,
+  LOG_LEVEL_INFO = 1,
+  LOG_LEVEL_WARNING = 2,
+  LOG_LEVEL_ERROR = 3,
+  LOG_LEVEL_FATAL = 4
 };
 
 class Logger
@@ -42,10 +64,14 @@ class Logger
 private:
   // member variables
   LOG_LEVEL LogLevel;
+  std::ofstream LogFile;
 
 public:
   // constructor
   Logger(LOG_LEVEL logLevel);
+
+  // open file to write log to disk
+  void Logger::OpenLogFileForWriting();
 
   // log a trace (i.e. method calls, other low importance data)
   void LogTrace(std::string message, std::string file, int line);
@@ -61,4 +87,9 @@ public:
 
   // log fatal (something has happened which prevents the program continuing)
   void LogFatal(std::string message, std::string file, int line);
+
+  void WriteLogHTMLFooter();
+private:
+  // helper method to write HTML header for logfile
+  void WriteLogHTMLHeader();
 };
