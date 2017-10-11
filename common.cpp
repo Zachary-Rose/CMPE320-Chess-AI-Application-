@@ -10,6 +10,9 @@
 // PLATFORM DEPENDENT INCLUDES
 #ifdef _WIN32
 #include <Windows.h>
+#else
+#include <sys/stat.h>
+const std::string logPath = "/Users/mark/Class/cisc320-proj/logs";
 #endif
 
 //--------------------------------------------------------------------------------
@@ -24,7 +27,7 @@ void Logger::OpenLogFileForWriting()
 #ifdef _WIN32
   CreateDirectoryA("logs", NULL);
 #else
-  // Darwin (macOS)
+  mkdir(logPath.c_str(), S_IRWXU);
 #endif
 
   // generate filename & open file
@@ -34,7 +37,13 @@ void Logger::OpenLogFileForWriting()
   tstruct = *localtime(&now);
   strftime(timeCharArr, sizeof(timeCharArr), "_%F_%H.%M.%S", &tstruct);
   std::string timeString(timeCharArr);
+
+#ifdef _WIN32
   std::string filename = "./logs/ChessPP" + timeString + ".html";
+#else
+  std::string filename = logPath + "/ChessPP" + timeString + ".html";
+#endif
+
   this->LogFile.open(filename.c_str());
   if (!this->LogFile.is_open())
   {
@@ -99,8 +108,8 @@ void Logger::LogTrace(std::string message, std::string file, int line)
     std::cout << " <" << file << ", " << line << ">" << std::endl;
     SetConsoleTextAttribute(hstdout, bufferInfo.wAttributes);
 #else
-    std::cout << std::setw(7) << std::right << "TRACE"
-      << "| " << message << " <" << file << ", "
+    std::cout << "\033[36m" << std::setw(7) << std::right << "TRACE"
+      << "| " << message << "\033[0m" << " <" << file << ", "
       << line << ">" << std::endl;
 #endif
 
@@ -128,8 +137,8 @@ void Logger::LogInfo(std::string message, std::string file, int line)
     std::cout << " <" << file << ", " << line << ">" << std::endl;
     SetConsoleTextAttribute(hstdout, bufferInfo.wAttributes);
 #else
-    std::cout << std::setw(7) << std::right << "INFO"
-      << "| " << message << " <" << file << ", "
+    std::cout << "\033[35m" << std::setw(7) << std::right << "INFO"
+      << "| " << message << "\033[0m" << " <" << file << ", "
       << line << ">" << std::endl;
 #endif
 
@@ -157,8 +166,8 @@ void Logger::LogWarning(std::string message, std::string file, int line)
     std::cout << " <" << file << ", " << line << ">" << std::endl;
     SetConsoleTextAttribute(hstdout, bufferInfo.wAttributes);
 #else
-    std::cout << std::setw(7) << std::right << "WARNING"
-      << "| " << message << " <" << file << ", "
+    std::cout << "\033[33m" << std::setw(7) << std::right << "WARNING"
+      << "| " << message << "\03[0m" << " <" << file << ", "
       << line << ">" << std::endl;
 #endif
 
@@ -186,8 +195,8 @@ void Logger::LogError(std::string message, std::string file, int line)
     std::cout << " <" << file << ", " << line << ">" << std::endl;
     SetConsoleTextAttribute(hstdout, bufferInfo.wAttributes);
 #else
-    std::cout << std::setw(7) << std::right << "ERROR"
-      << "| " << message << " <" << file << ", "
+    std::cout << "\033[31m" << std::setw(7) << std::right << "ERROR"
+      << "| " << message << "\033[0m" << " <" << file << ", "
       << line << ">" << std::endl;
 #endif
 
@@ -214,8 +223,8 @@ void Logger::LogFatal(std::string message, std::string file, int line)
     std::cout << " <" << file << ", " << line << ">" << std::endl;
     SetConsoleTextAttribute(hstdout, bufferInfo.wAttributes);
 #else
-    std::cout << std::setw(7) << std::right << "FATAL"
-      << "| " << message << " <" << file << ", "
+    std::cout << "\033[37;41m" << std::setw(7) << std::right << "FATAL"
+      << "| " << message << "\033[0m" << " <" << file << ", "
       << line << ">" << std::endl;
 #endif
 

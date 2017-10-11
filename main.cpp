@@ -14,7 +14,6 @@ Logger chessPPLogger(LOG_LEVEL_TRACE);
 void closeLogger(void)
 {
   chessPPLogger.WriteLogHTMLFooter();
-  std::cout << "closeLogger()" << std::endl;
 }
 
 void initialize()
@@ -28,9 +27,6 @@ void initialize()
   {
     std::cout << fe.what() << std::endl;
   }
-
-  // register Logger::WriteLogHTMLFooter() to run on exit
-  std::at_quick_exit(closeLogger);
 }
 
 int main(int argc, char *argv[])
@@ -45,9 +41,11 @@ int main(int argc, char *argv[])
   LOG_FATAL("!");
 
   LOG_TRACE("Logger sucessfully initialized.")
+
   QApplication a(argc, argv);
   chesspp w;
   w.show();
   int retVal = a.exec();
-  quick_exit(retVal);
+  atexit(closeLogger);
+  return retVal;
 }

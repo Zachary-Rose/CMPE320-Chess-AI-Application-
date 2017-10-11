@@ -41,7 +41,7 @@ public:
     this->message = message;
   }
 
-  std::string what()
+  virtual std::string what()
   {
     return this->message;
   }
@@ -71,7 +71,7 @@ public:
   Logger(LOG_LEVEL logLevel);
 
   // open file to write log to disk
-  void Logger::OpenLogFileForWriting();
+  void OpenLogFileForWriting();
 
   // log a trace (i.e. method calls, other low importance data)
   void LogTrace(std::string message, std::string file, int line);
