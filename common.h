@@ -15,6 +15,7 @@
 #define W_ROOK 'R'
 #define W_KNIGHT 'N'
 #define W_PAWN 'P'
+#define EMPTY ' '
 
 // logging macros
 #define LOG_TRACE(message) \
