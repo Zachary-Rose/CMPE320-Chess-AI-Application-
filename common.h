@@ -1,31 +1,42 @@
 #pragma once
 
 #include <fstream>
+#include <sstream>
 
 // logging macros
 #define LOG_TRACE(message) \
 { \
-  chessPPLogger.LogTrace(message, __FILE__, __LINE__); \
+  std::ostringstream msgStream; \
+  msgStream << message << std::ends; \
+  chessPPLogger.LogTrace(msgStream.str(), __FILE__, __LINE__); \
 }
 
 #define LOG_INFO(message) \
 { \
-  chessPPLogger.LogInfo(message, __FILE__, __LINE__); \
+  std::ostringstream msgStream; \
+  msgStream << message << std::ends; \
+  chessPPLogger.LogInfo(msgStream.str(), __FILE__, __LINE__); \
 }
 
 #define LOG_WARNING(message) \
 { \
-  chessPPLogger.LogWarning(message, __FILE__, __LINE__); \
+  std::ostringstream msgStream; \
+  msgStream << message << std::ends; \
+  chessPPLogger.LogWarning(msgStream.str(), __FILE__, __LINE__); \
 }
 
 #define LOG_ERROR(message) \
 { \
-  chessPPLogger.LogError(message, __FILE__, __LINE__); \
+  std::ostringstream msgStream; \
+  msgStream << message << std::ends; \
+  chessPPLogger.LogError(msgStream.str(), __FILE__, __LINE__); \
 }
 
 #define LOG_FATAL(message) \
 { \
-  chessPPLogger.LogFatal(message, __FILE__, __LINE__); \
+  std::ostringstream msgStream; \
+  msgStream << message << std::ends; \
+  chessPPLogger.LogFatal(msgStream.str(), __FILE__, __LINE__); \
 }
 
 // exception class for the group of errors related to file IO
@@ -94,3 +105,5 @@ private:
   // helper method to write HTML header for logfile
   void WriteLogHTMLHeader();
 };
+
+extern Logger chessPPLogger;

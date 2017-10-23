@@ -43,6 +43,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -70,6 +71,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ai.cpp" />
+    <ClCompile Include="ai_test.cpp" />
     <ClCompile Include="board.cpp" />
     <ClCompile Include="board_io.cpp" />
     <ClCompile Include="chesspp.cpp" />
@@ -115,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ai.h" />
+    <ClInclude Include="ai_test.h" />
     <ClInclude Include="board.h" />
     <ClInclude Include="board_io.h" />
     <ClInclude Include="GeneratedFiles\ui_chesspp.h" />

@@ -1,11 +1,16 @@
-// LOCAL INCLUDES
+﻿// LOCAL INCLUDES
 #include "chesspp.h"
 #include "common.h"
 #include <iostream>
 #include <cstdlib>
+#include "board.h"
+#include "ai_test.h"
 
 // Qt INCLUDES
 #include <QtWidgets/QApplication>
+
+// constants
+const bool runAiTests = true;
 
 // global logger
 Logger chessPPLogger(LOG_LEVEL_TRACE);
@@ -32,15 +37,13 @@ void initialize()
 int main(int argc, char *argv[])
 {
   initialize();
+  LOG_TRACE("Logger sucessfully initialized.");
 
-  // silly logger testing code :)
-  LOG_TRACE("Hello");
-  LOG_INFO("To");
-  LOG_WARNING("Team");
-  LOG_ERROR("Buckhorn");
-  LOG_FATAL("!");
-
-  LOG_TRACE("Logger sucessfully initialized.")
+  if (runAiTests)
+  {
+    ai_test aiTest;
+    aiTest.runAll();
+  }
 
   QApplication a(argc, argv);
   chesspp w;

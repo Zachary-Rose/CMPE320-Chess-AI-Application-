@@ -1,18 +1,18 @@
-// LOCAL INCLUDES
+// Local includes
 #include "common.h"
 
-// STL INCLUDES
+// System includes
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <time.h>
 
-// PLATFORM DEPENDENT INCLUDES
+// Platform dependent includes
 #ifdef _WIN32
-#include <Windows.h>
+  #include <Windows.h>
 #else
-#include <sys/stat.h>
-const std::string logPath = "/Users/mark/Class/cisc320-proj/logs";
+  #include <sys/stat.h>
+  const std::string logPath = "/Users/mark/Class/cisc320-proj/logs";
 #endif
 
 //--------------------------------------------------------------------------------
