@@ -3,6 +3,7 @@
 // system includes
 #include <vector>
 #include <ostream>
+#include <exception>
 
 // chess piece constants
 #define B_KING 'k'
