@@ -1,91 +1,83 @@
+// local includes
 #include "move.h"
 #include "common.h"
 #include "board.h"
 
 #define INVALID_POSITION -1
+
 //--------------------------------------------------------------------------------
 Move::Move()
 {
-  this->From_i = INVALID_POSITION;
-  this->From_j = INVALID_POSITION;
-  this->To_i = INVALID_POSITION;
-  this->To_j = INVALID_POSITION;
+  LOG_TRACE("Move::Move()");
+  BoardPosition invalidBoardPosition;
+  this->From = invalidBoardPosition;
+  this->To = invalidBoardPosition;
   this->CapturedPiece = EMPTY;
 }
 
 //--------------------------------------------------------------------------------
 Move::Move(int From_i, int From_j, int To_i, int To_j)
 {
-  if (From_i < 0 || From_i > 7)
-    throw MoveException("From_i provided to Move constructor had illegal value.");
-  if (From_j < 0 || From_j > 7)
-    throw MoveException("From_j provided to Move constructor had illegal value.");
-  if (To_i < 0 || To_i > 7)
-    throw MoveException("To_i provided to Move constructor had illegal value.");
-  if (To_j < 0 || To_j > 7)
-    throw MoveException("To_j provided to Move constructor had illegal value.");
-
-  this->From_i = From_i;
-  this->From_j = From_j;
-  this->To_i = To_i;
-  this->To_j = To_j;
-  this->CapturedPiece = EMPTY;
+  LOG_TRACE("Move::Move(int From_i, int From_j, int To_i, int To_j)");
+  BoardPosition from(From_i, From_j);
+  BoardPosition to(To_i, To_j);
+  Move(from, to, EMPTY);
 }
 
 //--------------------------------------------------------------------------------
 Move::Move(int From_i, int From_j, int To_i, int To_j, char CapturedPiece)
 {
-  //TODO: These should be LOG_ERROR calls (remove the exception class)
-  if (From_i < 0 || From_i > 7)
-    LOG_ERROR("Invalid From_i provided in Move constructor with value " << From_i << ".");
-  if (From_j < 0 || From_j > 7)
-    throw MoveException("From_j provided to Move constructor had illegal value.");
-  if (To_i < 0 || To_i > 7)
-    throw MoveException("To_i provided to Move constructor had illegal value.");
-  if (To_j < 0 || To_j > 7)
-    throw MoveException("To_j provided to Move constructor had illegal value.");
+  LOG_TRACE("Move::Move(int From_i, int From_j, int To_i, int To_j, char CapturedPiece)");
+  BoardPosition from(From_i, From_j);
+  BoardPosition to(To_i, To_j);
+  Move(From, To, CapturedPiece);
+}
 
+Move::Move(const BoardPosition& From, const BoardPosition& To)
+{
+  LOG_TRACE("Move::Move(const BoardPosition& From, const BoardPosition& To)");
+  Move(From, To, EMPTY);
+}
 
-  this->From_i = From_i;
-  this->From_j = From_j;
-  this->To_i = To_i;
-  this->To_j = To_j;
+Move::Move(const BoardPosition& From, const BoardPosition& To, const char& CapturedPiece)
+{
+  LOG_TRACE("Move::Move(const BoardPosition& From, const BoardPosition& To, const char& CapturedPiece)");
+  this->From = From;
+  this->To = To;
   this->CapturedPiece = CapturedPiece;
 }
 
-//--------------------------------------------------------------------------------
 Move::~Move()
 {
+  LOG_TRACE("Move::~Move()");
 }
 
-//--------------------------------------------------------------------------------
-void Move::GetFromPiecePosition(int& From_i, int& From_j)
+BoardPosition Move::GetFromPiecePosition()
 {
-  From_i = this->From_i;
-  From_j = this->From_j;
+  LOG_TRACE("BoardPosition Move::GetFromPiecePosition()");
+  return this->From;
 }
 
-//--------------------------------------------------------------------------------
-void Move::GetToPiecePosition(int& To_i, int& To_j)
+BoardPosition Move::GetToPiecePosition()
 {
-  To_i = this->To_i;
-  To_j = this->To_j;
+  LOG_TRACE("BoardPosition Move::GetToPiecePosition()");
+  return this->To;
 }
 
-void Move::GetCapturedPiece(char& CapturedPiece)
+char Move::GetCapturedPiece()
 {
-  CapturedPiece = this->CapturedPiece;
+  LOG_TRACE("char Move::GetCapturedPiece()");
+  return this->CapturedPiece;
 }
 
-std::ostream& operator<<(std::ostream &os, Move &m)
+std::ostream& operator<<(std::ostream& os, Move& m)
 {
-  int from_i, from_j, to_i, to_j;
-  char capturedPiece;
-  m.GetFromPiecePosition(from_i, from_j);
-  m.GetToPiecePosition(to_i, to_j);
-  m.GetCapturedPiece(capturedPiece);
-  os << "From: (" << from_i << ", " << from_j << ") ";
-  os << "To: (" << to_i << ", " << to_j << ") ";
+  LOG_TRACE("operator<<(std::ostream& os, Move& m)");
+  BoardPosition from = m.GetFromPiecePosition();
+  BoardPosition to = m.GetToPiecePosition();
+  char capturedPiece = m.GetCapturedPiece();
+  os << "From: (" << from.i() << ", " << from.j() << ") ";
+  os << "To: (" << to.i() << ", " << to.j() << ") ";
   os << "Captured piece: ";
   capturedPiece == ' '? os << "None." : os << capturedPiece << ".";
   return os;
