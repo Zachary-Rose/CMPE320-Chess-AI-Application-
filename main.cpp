@@ -1,19 +1,22 @@
-﻿// LOCAL INCLUDES
+﻿// local includes
 #include "chesspp.h"
 #include "common.h"
-#include <iostream>
-#include <cstdlib>
 #include "board.h"
+#include "ai.h"
 #include "ai_test.h"
 
-// Qt INCLUDES
+// system includes
+#include <iostream>
+#include <cstdlib>
+
+// Qt includes
 #include <QtWidgets/QApplication>
 
 // constants
 const bool runAiTests = true;
 
 // global logger
-Logger chessPPLogger(LOG_LEVEL_TRACE);
+Logger chessPPLogger(LOG_LEVEL_INFO);
 
 // writes end of log file on application close
 void closeLogger(void)
