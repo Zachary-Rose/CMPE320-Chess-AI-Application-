@@ -7,7 +7,6 @@ class BoardPosition
 public:
   BoardPosition();
   BoardPosition(int Pos_i, int Pos_j);
-  BoardPosition(int Pos_i, char Pos_j);
   ~BoardPosition();
 
   // accessors
