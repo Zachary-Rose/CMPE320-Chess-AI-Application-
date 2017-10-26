@@ -38,30 +38,6 @@ char Board::GetPieceByPosition(int i, int j)
 }
 
 //--------------------------------------------------------------------------------
-char Board::GetPieceByPosition(int rank, char file)
-{
-  LOG_TRACE("board::GetPieceByPosition(int rank, char file)");
-  int j;
-  const int ascii_A = 'A';
-  const int ascii_H = 'H';
-  const int ascii_a = 'a';
-  const int ascii_h = 'h';
-  if ('A' <= file && file <= 'H')
-  {
-    j = file - 'A';
-  }
-  else if ('a' <= file && file <= 'h')
-  {
-    j = file - 'a';
-  }
-  else
-  {
-    return EMPTY;
-  }
-  return this->GetPieceByPosition(rank, j);
-}
-
-//--------------------------------------------------------------------------------
 boardRepresentation Board::GetBoard()
 {
   LOG_TRACE("GetBoard()");

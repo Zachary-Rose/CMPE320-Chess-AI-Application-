@@ -33,14 +33,13 @@ public:
    * (0, 0) and (0, 'a') represent bottom left corner (white rook on home row)
    */
   char GetPieceByPosition(int i, int j);
-  char GetPieceByPosition(int rank, char file);
 
   /*
    *
    */
   boardRepresentation GetBoard();
 
-
+  
 private:
   // Internal representation of the current state of the board.
   boardRepresentation CurrentBoard;
