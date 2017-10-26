@@ -1,3 +1,4 @@
+// local includes
 #include "board_position.h"
 #include "common.h"
 
@@ -13,25 +14,22 @@ BoardPosition::BoardPosition()
 BoardPosition::BoardPosition(int Pos_i, int Pos_j)
 {
   LOG_TRACE("BoardPosition::BoardPosition(int Pos_i, int Pos_j)");
+  if (Pos_i < 0 || Pos_i > 7)
+  {
+    LOG_ERROR("Pos_i provided to BoardPosition constructor had illegal value " << Pos_i << ".");
+    BoardPosition();
+    return;
+  }
+    
+  if (Pos_j < 0 || Pos_j > 7)
+  {
+    LOG_ERROR("Pos_j provided to BoardPosition constructor had illegal value " << Pos_j << ".");
+    BoardPosition();
+    return;
+  }
+    
   this->Pos_i = Pos_i;
   this->Pos_j = Pos_j;
-}
-
-//--------------------------------------------------------------------------------
-BoardPosition::BoardPosition(int Pos_i, char file)
-{
-  LOG_TRACE("BoardPosition::BoardPosition(int Pos_i, char Pos_j)");
-  int j;
-  if ('A' <= file && file <= 'H')
-  {
-    j = file - 'A';
-  }
-  else if ('a' <= file && file <= 'h')
-  {
-    j = file - 'a';
-  }
-
-  BoardPosition(Pos_i, j);
 }
 
 //--------------------------------------------------------------------------------
