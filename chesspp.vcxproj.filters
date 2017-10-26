@@ -63,6 +63,9 @@
     <ClCompile Include="ai_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="board_position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="chesspp.h">
@@ -95,6 +98,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ai_test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="board_position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
