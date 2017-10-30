@@ -1,9 +1,11 @@
 // Local includes
 #include "board.h"
 #include "common.h"
+#include "move.h"
 
 // System includes
 #include <iostream>
+#include <vector>
 
 //--------------------------------------------------------------------------------
 Board::Board()
