@@ -35,16 +35,10 @@ Move Ai::ExecuteMove(PLAYER WhosTurnIsIt, Move move)
 }
 
 //--------------------------------------------------------------------------------
-std::vector<Move> Ai::GenerateRookMoves(int Start_i, int Start_j) {
-	LOG_TRACE("Board::RookMechanics(int Start_i, int Start_j)");
+std::vector<Move> Ai::GenerateRookMoves(int i, int j) {
+	LOG_TRACE("Board::RookMechanics(int i, int j)");
 
-	if (GetPieceByPosition(Start_i, Start_j) != B_ROOK &&
-		GetPieceByPosition(Start_i, Start_j) != W_ROOK)
-	{
-		LOG_WARNING("Invalid index: Not a Rook");
-	}
-
-	bool bw = this->GetPieceByPosition(Start_i, Start_j) == W_ROOK;   //white rook is true, black rook is false
+	bool bw = GameBoard.GetPieceByPosition(i, j) == W_ROOK;   //white rook is true, black rook is false
 	int iOffset = 0;  //offset from original rook position to destined position
 	int jOffset = 0;
 	int iDir = 1;     //direction of checking
@@ -57,25 +51,25 @@ std::vector<Move> Ai::GenerateRookMoves(int Start_i, int Start_j) {
 		jOffset += jDir;
 
 		if (
-			(Start_i + iOffset > 7) ||
-			(Start_i + iOffset < 0) ||
-			(Start_j + jOffset > 7) ||
-			(Start_j + jOffset < 0))
+			(i + iOffset > 7) ||
+			(i + iOffset < 0) ||
+			(j + jOffset > 7) ||
+			(j + jOffset < 0))
 		{
 			count++;
 			iOffset = 0;
 			jOffset = 0;
 		}
-		else if (getPieceByPosition(Start_i + iOffset, Start_j + jOffset) == EMPTY)
+		else if (GameBoard.GetPieceByPosition(i + iOffset, j + jOffset) == EMPTY)
 		{
-			Move tempMove(Start_i, Start_j, Start_i + iOffset, Start_j + jOffset, EMPTY);
+			Move tempMove(i, j, i + iOffset, j + jOffset, EMPTY);
 			moves.push_back(tempMove);
 		}
 		else if (
-			(bw &&  getPieceByPosition(Start_i + iOffset, Start_j + jOffset) >= B_BISHOP) ||
-			(!bw &&  getPieceByPosition(Start_i + iOffset, Start_j + jOffset) <= W_ROOK))
+			(bw &&  GameBoard.GetPieceByPosition(i + iOffset, j + jOffset) >= B_BISHOP) ||
+			(!bw &&  GameBoard.GetPieceByPosition(i + iOffset, j + jOffset) <= W_ROOK))
 		{
-			Move tempMove(Start_i, Start_j, Start_i + iOffset, Start_j + jOffset, getPieceByPosition(Start_i + iOffset, Start_j + jOffset));
+			Move tempMove(i, j, i + iOffset, j + jOffset, GameBoard.GetPieceByPosition(i + iOffset, j + jOffset));
 			moves.push_back(tempMove);
 			count++;
 			iOffset = 0;
@@ -99,16 +93,10 @@ std::vector<Move> Ai::GenerateRookMoves(int Start_i, int Start_j) {
 	return moves;
 }
 
-std::vector<Move> Ai::GenerateKnightMoves(int Start_i, int Start_j) {
-	LOG_TRACE("Board::KnightMechanics(int Start_i, int Start_j)");
+std::vector<Move> Ai::GenerateKnightMoves(int i, int j) {
+	LOG_TRACE("Board::KnightMechanics(int i, int j)");
 
-	if (GetPieceByPosition(Start_i, Start_j) != B_KNIGHT &&
-		GetPieceByPosition(Start_i, Start_j) != W_KNIGHT)
-	{
-		LOG_WARNING("Invalid index: Not a Knight");
-	}
-
-	bool bw = getPieceByPosition(Start_i, Start_j) == W_KNIGHT;
+	bool bw = (GameBoard.GetPieceByPosition(i, j) == W_KNIGHT);
 	std::vector<std::vector<int>> pos{
 		{ 1, 2 },
 		{ 2, 1 },
@@ -123,52 +111,53 @@ std::vector<Move> Ai::GenerateKnightMoves(int Start_i, int Start_j) {
 	for (int k = 0; k<pos.size(); k++)
 	{
 		if (
-			(Start_i + pos[k][0] > 7) ||
-			(Start_i + pos[k][0] < 0) ||
-			(Start_j + pos[k][1] > 7) ||
-			(Start_j + pos[k][1] < 0))
+			(i + pos[k][0] > 7) ||
+			(i + pos[k][0] < 0) ||
+			(j + pos[k][1] > 7) ||
+			(j + pos[k][1] < 0))
 		{
 			continue;
 		}
-		else if (getPieceByPosition(Start_i + pos[k][0], Start_j + pos[k][1]) == EMPTY) {
-			Move tempMove(Start_i, Start_j, Start_i + pos[k][0], Start_j + pos[k][1], EMPTY);
+		else if (GameBoard.GetPieceByPosition(i + pos[k][0], j + pos[k][1]) == EMPTY) {
+			Move tempMove(i, j, i + pos[k][0], j + pos[k][1], EMPTY);
 			moves.push_back(tempMove);
 		}
 		else if (
-			(bw &&  getPieceByPosition(Start_i + pos[k][0], Start_j + pos[k][1]) >= B_BISHOP) ||
-			(!bw &&  getPieceByPosition(Start_i + pos[k][0], Start_j + pos[k][1]) <= W_ROOK))
+			(bw &&  GameBoard.GetPieceByPosition(i + pos[k][0], j + pos[k][1]) >= B_BISHOP) ||
+			(!bw &&  GameBoard.GetPieceByPosition(i + pos[k][0], j + pos[k][1]) <= W_ROOK))
 		{
-			Move tempMove(Start_i, Start_j, Start_i + pos[k][0], Start_j + pos[k][1], getPieceByPosition(Start_i + pos[k][0], Start_j + pos[k][1]));
+			Move tempMove(i, j, i + pos[k][0], j + pos[k][1], GameBoard.GetPieceByPosition(i + pos[k][0], j + pos[k][1]));
 			moves.push_back(tempMove);
 		}
 	}
+	return moves;
 }
 
 //--------------------------------------------------------------------------------
-std::vector<Move> Ai::GenerateBishopMoves()
+std::vector<Move> Ai::GenerateBishopMoves(int i, int j)
 {
-  LOG_TRACE("std::vector<Move> Ai::GenerateBishopMoves()");
+  LOG_TRACE("std::vector<Move> Ai::GenerateBishopMoves(int i, int j)");
   return std::vector<Move>();
 }
 
 //--------------------------------------------------------------------------------
-std::vector<Move> Ai::GenerateKingMoves()
+std::vector<Move> Ai::GenerateKingMoves(int i, int j)
 {
-  LOG_TRACE("std::vector<Move> Ai::GenerateKingMoves()");
+  LOG_TRACE("std::vector<Move> Ai::GenerateKingMoves(int i, int j)");
   return std::vector<Move>();
 }
 
 //--------------------------------------------------------------------------------
-std::vector<Move> Ai::GenerateQueenMoves()
+std::vector<Move> Ai::GenerateQueenMoves(int i, int j)
 {
-  LOG_TRACE("std::vector<Move> Ai::GenerateQueensMoves()");
+  LOG_TRACE("std::vector<Move> Ai::GenerateQueensMoves(int i, int j)");
   return std::vector<Move>();
 }
 
 //--------------------------------------------------------------------------------
-std::vector<Move> Ai::GeneratePawnMoves()
+std::vector<Move> Ai::GeneratePawnMoves(int i, int j)
 {
-  LOG_TRACE("std::vector<Move> Ai::GeneratePawnMoves()");
+  LOG_TRACE("std::vector<Move> Ai::GeneratePawnMoves(int i, int j)");
   return std::vector<Move>();
 }
 
@@ -176,5 +165,45 @@ std::vector<Move> Ai::GeneratePawnMoves()
 std::vector<Move> Ai::GenerateAllPossibleMoves()
 {
   LOG_TRACE("std::vector<Move> Ai::GenerateAllPossibleMoves()");
-  return std::vector<Move>();
+
+  std::vector<Move> allMoves;
+
+  for (int i = 0; i < 7; i++)
+  {
+	  for (int j = 0; j < 7; j++)
+	  {
+		  if (GameBoard.GetPieceByPosition(i, j) == W_KING || GameBoard.GetPieceByPosition(i, j) == B_KING)
+		  {
+			  std::vector<Move> kingMoves = GenerateKingMoves(i, j);
+			  allMoves.insert(allMoves.end(), kingMoves.begin(), kingMoves.end());
+		  }
+		  else if (GameBoard.GetPieceByPosition(i, j) == W_QUEEN || GameBoard.GetPieceByPosition(i, j) == B_QUEEN)
+		  {
+			  std::vector<Move> queenMoves = GenerateQueenMoves(i, j);
+			  allMoves.insert(allMoves.end(), queenMoves.begin(), queenMoves.end());
+		  }
+		  else if (GameBoard.GetPieceByPosition(i, j) == W_BISHOP || GameBoard.GetPieceByPosition(i, j) == B_BISHOP)
+		  {
+			  std::vector<Move> bishopMoves = GenerateKingMoves(i, j);
+			  allMoves.insert(allMoves.end(), bishopMoves.begin(), bishopMoves.end());
+		  }
+		  else if (GameBoard.GetPieceByPosition(i, j) == W_KNIGHT || GameBoard.GetPieceByPosition(i, j) == B_KNIGHT)
+		  {
+			  std::vector<Move> knightMoves = GenerateKnightMoves(i, j);
+			  allMoves.insert(allMoves.end(), knightMoves.begin(), knightMoves.end());
+		  }
+		  else if (GameBoard.GetPieceByPosition(i, j) == W_ROOK || GameBoard.GetPieceByPosition(i, j) == B_ROOK)
+		  {
+			  std::vector<Move> rookMoves = GenerateRookMoves(i, j);
+			  allMoves.insert(allMoves.end(), rookMoves.begin(), rookMoves.end());
+		  }
+		  else if (GameBoard.GetPieceByPosition(i, j) == W_PAWN || GameBoard.GetPieceByPosition(i, j) == B_PAWN)
+		  {
+			  std::vector<Move> pawnMoves = GeneratePawnMoves(i, j);
+			  allMoves.insert(allMoves.end(), pawnMoves.begin(), pawnMoves.end());
+		  }
+	  }
+  }
+
+  return allMoves;
 }

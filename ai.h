@@ -34,22 +34,22 @@ private:
   PLAYER WhosTurnIsIt; // who's turn is it right now?
 
   // generates list of all legal rook moves
-  std::vector<Move> GenerateRookMoves();
+  std::vector<Move> GenerateRookMoves(int, int);
 
   // generates list of all legal knight moves
-  std::vector<Move> GenerateKnightMoves();
+  std::vector<Move> GenerateKnightMoves(int, int);
 
   // generates list of all legal bishop moves
-  std::vector<Move> GenerateBishopMoves();
+  std::vector<Move> GenerateBishopMoves(int, int);
 
   // generates list of all legal king moves
-  std::vector<Move> GenerateKingMoves();
+  std::vector<Move> GenerateKingMoves(int, int);
 
   // generates list of all legal queen moves
-  std::vector<Move> GenerateQueenMoves();
+  std::vector<Move> GenerateQueenMoves(int, int);
 
   // generates list of all legal pawn moves
-  std::vector<Move> GeneratePawnMoves();
+  std::vector<Move> GeneratePawnMoves(int, int);
 
   // generates list of all possible legal moves
   std::vector<Move> GenerateAllPossibleMoves();
