@@ -43,7 +43,7 @@ private:
   std::vector<Move> GenerateBishopMoves(int Start_i, int Start_j);
 
   // generates list of all legal king moves
-  std::vector<Move> GenerateKingMoves();
+  std::vector<Move> GenerateKingMoves(int Start_i, int Start_j);
 
   // generates list of all legal queen moves
   std::vector<Move> GenerateQueenMoves(int Start_i, int Start_j);
