@@ -62,14 +62,18 @@ std::vector<Move> Ai::GenerateRookMoves(int i, int j) {
 		}
 		else if (GameBoard.GetPieceByPosition(i + iOffset, j + jOffset) == EMPTY)
 		{
-			Move tempMove(i, j, i + iOffset, j + jOffset, EMPTY);
+			BoardPosition from(i, j);
+			BoardPosition to(i + iOffset, j + jOffset);
+			Move tempMove(from, to, EMPTY);
 			moves.push_back(tempMove);
 		}
 		else if (
 			(bw &&  GameBoard.GetPieceByPosition(i + iOffset, j + jOffset) >= B_BISHOP) ||
 			(!bw &&  GameBoard.GetPieceByPosition(i + iOffset, j + jOffset) <= W_ROOK))
 		{
-			Move tempMove(i, j, i + iOffset, j + jOffset, GameBoard.GetPieceByPosition(i + iOffset, j + jOffset));
+			BoardPosition from(i, j);
+			BoardPosition to(i + iOffset, j + jOffset);
+			Move tempMove(from, to, GameBoard.GetPieceByPosition(i + iOffset, j + jOffset));
 			moves.push_back(tempMove);
 			count++;
 			iOffset = 0;
@@ -85,8 +89,10 @@ std::vector<Move> Ai::GenerateRookMoves(int i, int j) {
 		switch (count)
 		{
 		case 1: iDir = -1;
+			break;
 		case 2: iDir = 0;
 			jDir = 1;
+			break;
 		case 3: jDir = -1;
 		}
 	}
@@ -118,15 +124,20 @@ std::vector<Move> Ai::GenerateKnightMoves(int i, int j) {
 		{
 			continue;
 		}
-		else if (GameBoard.GetPieceByPosition(i + pos[k][0], j + pos[k][1]) == EMPTY) {
-			Move tempMove(i, j, i + pos[k][0], j + pos[k][1], EMPTY);
+		else if (GameBoard.GetPieceByPosition(i + pos[k][0], j + pos[k][1]) == EMPTY) 
+		{
+			BoardPosition from(i, j);
+			BoardPosition to(i + pos[k][0], j + pos[k][1]);
+			Move tempMove(from, to, EMPTY);
 			moves.push_back(tempMove);
 		}
 		else if (
 			(bw &&  GameBoard.GetPieceByPosition(i + pos[k][0], j + pos[k][1]) >= B_BISHOP) ||
 			(!bw &&  GameBoard.GetPieceByPosition(i + pos[k][0], j + pos[k][1]) <= W_ROOK))
 		{
-			Move tempMove(i, j, i + pos[k][0], j + pos[k][1], GameBoard.GetPieceByPosition(i + pos[k][0], j + pos[k][1]));
+			BoardPosition from(i, j);
+			BoardPosition to(i + pos[k][0], j + pos[k][1]);
+			Move tempMove(from, to, GameBoard.GetPieceByPosition(i + pos[k][0], j + pos[k][1]));
 			moves.push_back(tempMove);
 		}
 	}
@@ -168,9 +179,9 @@ std::vector<Move> Ai::GenerateAllPossibleMoves()
 
   std::vector<Move> allMoves;
 
-  for (int i = 0; i < 7; i++)
+  for (int i = 0; i < 8; i++)
   {
-	  for (int j = 0; j < 7; j++)
+	  for (int j = 0; j < 8; j++)
 	  {
 		  if (GameBoard.GetPieceByPosition(i, j) == W_KING || GameBoard.GetPieceByPosition(i, j) == B_KING)
 		  {
