@@ -51,6 +51,8 @@ std::vector<Move> Ai::GenerateKnightMoves()
 //--------------------------------------------------------------------------------
 std::vector<Move> Ai::GenerateBishopMoves(int Start_i, int Start_j)
 {
+	LOG_TRACE("std::vector<Move> Ai::GenerateBishopMoves()");
+	bool blackOrWhite = (GameBoard.GetPieceByPosition(Start_i, Start_j) == W_BISHOP); //true if white, false if black
 	std::vector<Move> BishopMoves;
 	int temp = 1;
 	char pieceTaken;
@@ -97,15 +99,23 @@ std::vector<Move> Ai::GenerateBishopMoves(int Start_i, int Start_j)
 			outOfBound = false;
 		}
 	}
-  LOG_TRACE("std::vector<Move> Ai::GenerateBishopMoves()");
+  
   return BishopMoves;
 }
 
 //--------------------------------------------------------------------------------
 std::vector<Move> Ai::GenerateKingMoves(int Start_i, int Start_j)
 {
+	LOG_TRACE("std::vector<Move> Ai::GenerateKingMoves()");
+	bool blackOrWhite = (GameBoard.GetPieceByPosition(Start_i, Start_j) == W_KING); //true if white, false if black
 	std::vector<Move> KingMoves;
 	char pieceTaken;
+
+	//castling
+
+	//first check if king or rook has moved
+	if(blackOrWhite && Start_i == 0 && Start_j == 3)
+
 
 	//j controls up and down
 	for (int j = -1; j <= 1; j++)
@@ -113,14 +123,20 @@ std::vector<Move> Ai::GenerateKingMoves(int Start_i, int Start_j)
 		//k controls left and right
 		for (int k = -1; k <= 1; k++)
 		{
-			pieceTaken = GameBoard.GetPieceByPosition(Start_i + 1 * j, Start_j + 1 * k);
-			if (islower(pieceTaken) || pieceTaken == ' ')
+			if (Start_i + j < 0 || Start_i + j > 7
+			 || Start_j + k < 0 || Start_j + k > 7)
 			{
-				//again a king safe method should be added here, wrapping the below line in an if statement
-				KingMoves.push_back(Move(Start_i, Start_j, Start_i + 1 * j, Start_j + 1 * k, pieceTaken));
+				pieceTaken = GameBoard.GetPieceByPosition(Start_i + 1 * j, Start_j + 1 * k);
+				if (pieceTaken == ' '
+					|| (blackOrWhite && islower(pieceTaken))
+					|| (!blackOrWhite && isupper(pieceTaken)))
+				{
+					//again a king safe method should be added here, wrapping the below line in an if statement
+					KingMoves.push_back(Move(Start_i, Start_j, Start_i + 1 * j, Start_j + 1 * k, pieceTaken));
+				}
 			}
 		}
-		LOG_TRACE("std::vector<Move> Ai::GenerateKingMoves()");
+
 		return std::vector<Move>();
 	}
 }
@@ -128,7 +144,9 @@ std::vector<Move> Ai::GenerateKingMoves(int Start_i, int Start_j)
 //--------------------------------------------------------------------------------
 std::vector<Move> Ai::GenerateQueenMoves(int Start_i, int Start_j)
 {
+	LOG_TRACE("std::vector<Move> Ai::GenerateQueensMoves()");
 	std::vector<Move> QueenMoves;
+	bool blackOrWhite = (GameBoard.GetPieceByPosition(Start_i, Start_j) == W_QUEEN); //true if white, false if black
 	int temp = 1;
 	char pieceTaken;
 	bool outOfBound = false;
@@ -161,11 +179,11 @@ std::vector<Move> Ai::GenerateQueenMoves(int Start_i, int Start_j)
 				}
 			}
 
-
 			if(!outOfBound) 
 			{
 				pieceTaken = GameBoard.GetPieceByPosition(Start_i + temp * j, Start_j + temp * k);
-				if (islower(pieceTaken))
+				if ((blackOrWhite && islower(pieceTaken))
+					|| (!blackOrWhite && isupper(pieceTaken)))
 				{
 					//again a king safe method should be added here, wrapping the below line in an if statement
 					QueenMoves.push_back(Move(Start_i, Start_j, Start_i + temp * j, Start_j + temp * k, pieceTaken));
@@ -174,8 +192,7 @@ std::vector<Move> Ai::GenerateQueenMoves(int Start_i, int Start_j)
 			outOfBound = false;
 		}
 	}
-
-  LOG_TRACE("std::vector<Move> Ai::GenerateQueensMoves()");
+  
   return QueenMoves;
 }
 
