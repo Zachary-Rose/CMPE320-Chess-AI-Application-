@@ -53,7 +53,6 @@ std::vector<Move> Ai::GenerateBishopMoves(int Start_i, int Start_j)
 {
 	std::vector<Move> BishopMoves;
 	int temp = 1;
-	//r and c are initial Bishop position, which needs to be found
 	char pieceTaken;
 
 
@@ -63,6 +62,7 @@ std::vector<Move> Ai::GenerateBishopMoves(int Start_i, int Start_j)
 		//k controls up and down, -1 down, 1 up
 		for (int k = -1; k <= 1; k += 2)
 		{
+			temp = 1;
 			while (GameBoard.GetPieceByPosition(Start_i + temp * j, Start_j + temp * k) == EMPTY)
 			{
 				//a king safe function needs to be added here, wrapping the below line in an if statement
@@ -88,10 +88,10 @@ std::vector<Move> Ai::GenerateKingMoves(int Start_i, int Start_j)
 	std::vector<Move> KingMoves;
 	char pieceTaken;
 
-	//j controls left to right, -1 left, 1 right
+	//j controls up and down
 	for (int j = -1; j <= 1; j++)
 	{
-		//k controls up and down, -1 down, 1 up
+		//k controls left and right
 		for (int k = -1; k <= 1; k++)
 		{
 			pieceTaken = GameBoard.GetPieceByPosition(Start_i + 1 * j, Start_j + 1 * k);
@@ -112,26 +112,46 @@ std::vector<Move> Ai::GenerateQueenMoves(int Start_i, int Start_j)
 	std::vector<Move> QueenMoves;
 	int temp = 1;
 	char pieceTaken;
+	bool outOfBound = false;
 
-	//j controls left to right, -1 left, 1 right
+	//j controls up and down
 	for (int j = -1; j <= 1; j++)
 	{
-		//k controls up and down, -1 down, 1 up
+		//k controls left and right
 		for (int k = -1; k <= 1; k++)
 		{
-			while (GameBoard.GetPieceByPosition(Start_i + temp * j, Start_j + temp * k) == EMPTY)
+			temp = 1;
+
+			if (Start_i + temp * j < 0 || Start_i + temp * j > 7
+				|| Start_j + temp * k < 0 || Start_j + temp * k > 7)
+			{
+				outOfBound = true;
+			}
+
+
+			while (!outOfBound && GameBoard.GetPieceByPosition(Start_i + temp * j, Start_j + temp * k) == EMPTY)
 			{
 				//a king safe function needs to be added here, wrapping the below line in an if statement
 				QueenMoves.push_back(Move(Start_i, Start_j, Start_i + temp * j, Start_j + temp * k));
+
 				temp++;
+				if (Start_i + temp * j < 0 || Start_i + temp * j > 7
+					|| Start_j + temp * k < 0 || Start_j + temp * k > 7) 
+				{
+					outOfBound = true;
+				}
 			}
 
-			pieceTaken = GameBoard.GetPieceByPosition(Start_i + temp * j, Start_j + temp * k);
-			if (islower(pieceTaken))
+			if(!outOfBound) 
 			{
-				//again a king safe method should be added here, wrapping the below line in an if statement
-				QueenMoves.push_back(Move(Start_i, Start_j, Start_i + temp * j, Start_j + temp * k, pieceTaken));
+				pieceTaken = GameBoard.GetPieceByPosition(Start_i + temp * j, Start_j + temp * k);
+				if (islower(pieceTaken))
+				{
+					//again a king safe method should be added here, wrapping the below line in an if statement
+					QueenMoves.push_back(Move(Start_i, Start_j, Start_i + temp * j, Start_j + temp * k, pieceTaken));
+				}
 			}
+			outOfBound = false;
 		}
 	}
 
