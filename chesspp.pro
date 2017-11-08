@@ -24,20 +24,51 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
+    main.cpp \
     gui_board.cpp \
     button.cpp \
     gui_game.cpp \
-    square.cpp
+    square.cpp \
+    ai_test.cpp \
+    ai.cpp \
+    board_io.cpp \
+    board_position.cpp \
+    board.cpp \
+    common.cpp \
+    move.cpp
 
 HEADERS += \
-    gui_board.h \
+    ai.h \
+    ai_test.h \
+    board.h \
+    board_io.h \
+    board_position.h \
     button.h \
+    common.h \
+    gui_board.h \
     gui_game.h \
+    move.h \
     square.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
 
 RESOURCES += \
-    res.qrc
+    chesspp.qrc
+
+SUBDIRS += \
+    chesspp.pro
+
+DISTFILES += \
+    chessImg/BlackBishop.png \
+    chessImg/BlackKing.png \
+    chessImg/BlackKnight.png \
+    chessImg/BlackPawn.png \
+    chessImg/BlackQueen.png \
+    chessImg/BlackRook.png \
+    chessImg/WhiteBishop.png \
+    chessImg/WhiteKing.png \
+    chessImg/WhiteKnight.png \
+    chessImg/WhitePawn.png \
+    chessImg/WhiteQueen.png \
+    chessImg/WhiteRook.png
