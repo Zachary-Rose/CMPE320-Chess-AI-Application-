@@ -27,7 +27,6 @@ void ai_test::test_board()
   Board b1;
   LOG_INFO("Test operator<<. Log standard board")
   LOG_INFO(b1);
-	Ai ai;
-	std::vector<Move> moves = ai.GenerateBishopMoves(2, 4);
+
 	LOG_INFO("Queens Moves:" );
 }

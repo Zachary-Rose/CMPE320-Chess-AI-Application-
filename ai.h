@@ -28,7 +28,7 @@ public:
   // executes move (either made by player via GUI, or by computer via AI)
   Move ExecuteMove(PLAYER WhosTurnIsIt, Move move);
 
-//private:
+private:
   //member variables
   Board GameBoard;
   PLAYER WhosTurnIsIt; // who's turn is it right now?
