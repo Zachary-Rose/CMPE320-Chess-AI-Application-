@@ -33,6 +33,12 @@ private:
   Board GameBoard;
   PLAYER WhosTurnIsIt; // who's turn is it right now?
 
+
+	//finds if king is safe or not
+	//needs which king we are trying to protect, white is 1, black is 0
+	//needs move trying to be executed
+	bool isKingSafe(bool blackOrWhite, Move move);
+
   // generates list of all legal rook moves
   std::vector<Move> GenerateRookMoves();
 
