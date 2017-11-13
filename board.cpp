@@ -15,7 +15,7 @@ Board::Board()
     {EMPTY , EMPTY   , EMPTY   , EMPTY   , EMPTY  , EMPTY   , EMPTY   , EMPTY },
     {EMPTY , EMPTY   , EMPTY   , EMPTY   , EMPTY  , EMPTY   , EMPTY   , EMPTY },
     {B_PAWN, B_PAWN  , B_PAWN  , B_PAWN  , B_PAWN , B_PAWN  , B_PAWN  , B_PAWN},
-    {B_ROOK, B_KNIGHT, B_BISHOP, B_KING  , B_QUEEN, B_BISHOP, B_KNIGHT, B_ROOK}})
+    {B_ROOK, B_KNIGHT, B_BISHOP, B_QUEEN  , B_KING, B_BISHOP, B_KNIGHT, B_ROOK}})
 {
   LOG_TRACE("board::board()")
 }
