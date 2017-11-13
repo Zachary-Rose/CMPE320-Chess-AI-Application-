@@ -114,39 +114,28 @@ std::vector<Move> Ai::GenerateKingMoves(int Start_i, int Start_j)
 	//castling
 
 	//first check if king has moved
-	if (blackOrWhite && Start_i == 0 && Start_j == 4)
+	if (Start_j == 4 && (Start_i == 0 || Start_i == 7))
 	{
 		//king's side
-		if (GameBoard.GetPieceByPosition(0, 7) == W_ROOK && GameBoard.GetPieceByPosition(0, 6) == EMPTY && GameBoard.GetPieceByPosition(0, 5) == EMPTY) 
+		if ((blackOrWhite && GameBoard.GetPieceByPosition(Start_i, 7) == W_ROOK && GameBoard.GetPieceByPosition(Start_i, 6) == EMPTY && GameBoard.GetPieceByPosition(Start_i, 5) == EMPTY)  ||
+			(!blackOrWhite && GameBoard.GetPieceByPosition(Start_i, 7) == B_ROOK && GameBoard.GetPieceByPosition(Start_i, 6) == EMPTY && GameBoard.GetPieceByPosition(Start_i, 5) == EMPTY)) 
 		{
 			//king cannot be put into check
 			KingMoves.push_back(Move(Start_i, Start_j, Start_i, Start_j + 2, EMPTY));
 		}
 
 		//queen's side
-		if (GameBoard.GetPieceByPosition(0, 0) == W_ROOK && GameBoard.GetPieceByPosition(0, 1) == EMPTY && GameBoard.GetPieceByPosition(0, 2) == EMPTY && GameBoard.GetPieceByPosition(0, 3) == EMPTY)
+		if ((blackOrWhite && GameBoard.GetPieceByPosition(Start_i, 0) == W_ROOK && GameBoard.GetPieceByPosition(Start_i, 1) == EMPTY && GameBoard.GetPieceByPosition(Start_i, 2) == EMPTY && GameBoard.GetPieceByPosition(Start_i, 3) == EMPTY) ||
+			(!blackOrWhite && GameBoard.GetPieceByPosition(Start_i, 0) == B_ROOK && GameBoard.GetPieceByPosition(Start_i, 1) == EMPTY && GameBoard.GetPieceByPosition(Start_i, 2) == EMPTY && GameBoard.GetPieceByPosition(Start_i, 3) == EMPTY))
 		{
 			//king cannot be put into check
 			KingMoves.push_back(Move(Start_i, Start_j, Start_i, Start_j - 3, EMPTY));
 		}
 
 	}
-	else if (!blackOrWhite && Start_i == 7 && Start_j == 3)
-	{
-		//queen's side
-		if (GameBoard.GetPieceByPosition(7, 7) == W_ROOK && GameBoard.GetPieceByPosition(7, 6) == EMPTY && GameBoard.GetPieceByPosition(7, 5) == EMPTY && GameBoard.GetPieceByPosition(7, 4) == EMPTY)
-		{
-			//king cannot be put into check
-			KingMoves.push_back(Move(Start_i, Start_j, Start_i, Start_j + 3, EMPTY));
-		}
 
-		//king's side
-		if (GameBoard.GetPieceByPosition(7, 0) == W_ROOK && GameBoard.GetPieceByPosition(0, 1) == EMPTY && GameBoard.GetPieceByPosition(0, 2) == EMPTY)
-		{
-			//king cannot be put into check
-			KingMoves.push_back(Move(Start_i, Start_j, Start_i, Start_j - 2, EMPTY));
-		}
-	}
+
+	
 
 
 	//j controls up and down
