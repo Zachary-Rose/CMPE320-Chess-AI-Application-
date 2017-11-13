@@ -26,7 +26,7 @@ void ChessBoard::placeSquares()
             }
 
             //Choose what piece will be placed in each square.
-            QString pieceName = ":/images/chessImg/"; //path to the images in Resources folder.
+            QString pieceName = ":/chessImg/"; //path to the images in Resources folder.
             if (j == 0){
                 pieceName = pieceName + nameblack[i];
             }else if(j == 1){

@@ -54,7 +54,8 @@ FORMS += \
         mainwindow.ui \
 
 RESOURCES += \
-    chesspp.qrc
+    chesspp.qrc \
+    chessImg/images.qrc
 
 SUBDIRS += \
     chesspp.pro
