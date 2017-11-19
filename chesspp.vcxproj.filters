@@ -66,6 +66,9 @@
     <ClCompile Include="board_position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="move_io.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="chesspp.h">
@@ -101,6 +104,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="board_position.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="move_io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

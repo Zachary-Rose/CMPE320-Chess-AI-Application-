@@ -40,10 +40,10 @@ private:
 	bool isKingSafe(bool blackOrWhite, Move move);
 
   // generates list of all legal rook moves
-  std::vector<Move> GenerateRookMoves();
+  std::vector<Move> GenerateRookMoves(int, int);
 
   // generates list of all legal knight moves
-  std::vector<Move> GenerateKnightMoves();
+  std::vector<Move> GenerateKnightMoves(int, int);
 
   // generates list of all legal bishop moves
   std::vector<Move> GenerateBishopMoves(int Start_i, int Start_j);
@@ -55,7 +55,7 @@ private:
   std::vector<Move> GenerateQueenMoves(int Start_i, int Start_j);
 
   // generates list of all legal pawn moves
-  std::vector<Move> GeneratePawnMoves();
+  std::vector<Move> GeneratePawnMoves(int, int);
 
   // generates list of all possible legal moves
   std::vector<Move> GenerateAllPossibleMoves();
