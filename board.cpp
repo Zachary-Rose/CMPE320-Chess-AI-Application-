@@ -47,6 +47,11 @@ boardRepresentation Board::GetBoard()
   return this->CurrentBoard;
 }
 
+void Board::SetPiece(int i, int j, char piece)
+{
+  CurrentBoard[i][j] = piece;
+}
+
 //--------------------------------------------------------------------------------
 std::ostream& operator<<(std::ostream &os, Board &b)
 {

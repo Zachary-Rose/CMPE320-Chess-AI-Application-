@@ -39,7 +39,8 @@ public:
    */
   boardRepresentation GetBoard();
 
-  
+  void SetPiece(int i, int j, char piece);
+
 private:
   // Internal representation of the current state of the board.
   boardRepresentation CurrentBoard;

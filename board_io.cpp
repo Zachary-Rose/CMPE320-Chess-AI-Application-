@@ -1,61 +1,58 @@
 #include "board_io.h"
-#include "board.h"
 
-board_io::board_io()
+BoardIO::BoardIO()
 {
 }
 
-board_io::~board_io()
-{
-}
-
-board_io::board_io(Board board)
+BoardIO::BoardIO(Board brd)
 {
 
 }
 
-board_io::board_io(std::string filename)
+BoardIO::BoardIO(std::string filename)
 {
 }
 
-
-
-board_io::board_io(Board board, std::string filename)
+BoardIO::BoardIO(Board brd, std::string filename)
 {
 
 }
 
-Board board_io::getBoard()
+BoardIO::~BoardIO()
 {
-	return Board.GetBoard;
 }
 
-void board_io::setBoard(Board board)
+Board BoardIO::GetBoard()
+{
+	return CurrentBoard;
+}
+
+void BoardIO::SetBoard(Board brd)
 {
 
 }
 
-std::string board_io::getFilePath()
+std::string BoardIO::GetFilePath()
 {
-	return std::string;
+	return std::string();
 }
 
-bool board_io::ReadBoardFromFile()
+bool BoardIO::ReadBoardFromFile()
 {
 	return false;
 }
 
-bool board_io::WriteBoardToFile()
+bool BoardIO::WriteBoardToFile()
 {
 	return false;
 }
 
-bool board_io::ReadBoard()
+bool BoardIO::ReadBoard()
 {
 	return false;
 }
 
-bool board_io::WriteBoard()
+bool BoardIO::WriteBoard()
 {
 	return false;
 }

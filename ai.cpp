@@ -41,8 +41,8 @@ bool Ai::isKingSafe(bool blackOrWhite, Move move) {
 	}
 
 	//execute the move given
-	GameBoard[move.GetToPiecePosition().i][move.GetToPiecePosition().j] = king;
-	GameBoard[move.GetFromPiecePosition().i][move.GetFromPiecePosition().j] = EMPTY;
+  GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), king);
+  GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), EMPTY);
 
 	//check to see if the king is safe
 	
@@ -76,8 +76,8 @@ bool Ai::isKingSafe(bool blackOrWhite, Move move) {
 					|| (!blackOrWhite && isupper(pieceAttack) && (pieceAttack == W_BISHOP || pieceAttack == W_QUEEN)))
 				{
 					//put that piece back where it came from or so help me
-					GameBoard[move.GetFromPiecePosition().i][move.GetFromPiecePosition().j] = king;
-					GameBoard[move.GetToPiecePosition().i][move.GetToPiecePosition().j] = move.GetCapturedPiece;
+					GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+					GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
 					return false;
 				}
 			}
@@ -113,8 +113,8 @@ bool Ai::isKingSafe(bool blackOrWhite, Move move) {
 			if ((blackOrWhite && islower(pieceAttack) && (pieceAttack == B_ROOK || pieceAttack == B_QUEEN))
 				|| (!blackOrWhite && isupper(pieceAttack) && (pieceAttack == W_ROOK || pieceAttack == W_QUEEN)))
 			{
-				GameBoard[move.GetFromPiecePosition().i][move.GetFromPiecePosition().j] = king;
-				GameBoard[move.GetToPiecePosition().i][move.GetToPiecePosition().j] = move.GetCapturedPiece;
+				GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+        GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
 				return false;
 			}
 		}
@@ -139,8 +139,8 @@ bool Ai::isKingSafe(bool blackOrWhite, Move move) {
 			if ((blackOrWhite && islower(pieceAttack) && (pieceAttack == B_ROOK || pieceAttack == B_QUEEN))
 				|| (!blackOrWhite && isupper(pieceAttack) && (pieceAttack == W_ROOK || pieceAttack == W_QUEEN)))
 			{
-				GameBoard[move.GetFromPiecePosition().i][move.GetFromPiecePosition().j] = king;
-				GameBoard[move.GetToPiecePosition().i][move.GetToPiecePosition().j] = move.GetCapturedPiece;
+				GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+				GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
 				return false;
 			}
 		}
@@ -173,8 +173,8 @@ bool Ai::isKingSafe(bool blackOrWhite, Move move) {
 		else if ((blackOrWhite && GameBoard.GetPieceByPosition(kingCol + pos[k][0], kingRow + pos[k][1]) == B_ROOK) ||
 						 (!blackOrWhite && GameBoard.GetPieceByPosition(kingCol + pos[k][0], kingRow + pos[k][1]) == W_ROOK))
 		{
-			GameBoard[move.GetFromPiecePosition().i][move.GetFromPiecePosition().j] = king;
-			GameBoard[move.GetToPiecePosition().i][move.GetToPiecePosition().j] = move.GetCapturedPiece;
+			GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+			GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
 			return false;
 		}
 	}
@@ -185,8 +185,8 @@ bool Ai::isKingSafe(bool blackOrWhite, Move move) {
 	{
 		if (GameBoard.GetPieceByPosition(kingCol + 1, kingRow + 1) == B_PAWN || GameBoard.GetPieceByPosition(kingCol - 1, kingRow + 1) == B_PAWN)
 		{
-			GameBoard[move.GetFromPiecePosition().i][move.GetFromPiecePosition().j] = king;
-			GameBoard[move.GetToPiecePosition().i][move.GetToPiecePosition().j] = move.GetCapturedPiece;
+			GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+			GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
 			return false;
 		}
 	}
@@ -194,16 +194,16 @@ bool Ai::isKingSafe(bool blackOrWhite, Move move) {
 	{
 		if (GameBoard.GetPieceByPosition(kingCol + 1, kingRow - 1) == W_PAWN || GameBoard.GetPieceByPosition(kingCol - 1, kingRow - 1) == W_PAWN)
 		{
-			GameBoard[move.GetFromPiecePosition().i][move.GetFromPiecePosition().j] = king;
-			GameBoard[move.GetToPiecePosition().i][move.GetToPiecePosition().j] = move.GetCapturedPiece;
+			GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+			GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
 			return false;
 		}
 	}
 
 	//we made it through the gauntlet, the move is valid
 	//put that piece back where it came from or so help me
-	GameBoard[move.GetFromPiecePosition().i][move.GetFromPiecePosition().j] = king;
-	GameBoard[move.GetToPiecePosition().i][move.GetToPiecePosition().j] = move.GetCapturedPiece;
+	GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+	GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
 	return true;
 }
 

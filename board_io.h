@@ -1,32 +1,27 @@
 #pragma once
 
+#include <string>
+#include "board.h"
 
-#include <string>;
-#include "board.h";
-
-class board_io
+class BoardIO
 {
-
-
 public:
-  board_io();
-  ~board_io();
-	board_io(Board board);
-	board_io(std::string filename);
-	board_io(Board board, std::string filename);
-	Board getBoard();
-	void setBoard(Board board);
-	std::string getFilePath();
+  BoardIO();
+  BoardIO(Board board);
+  BoardIO(std::string filename);
+  BoardIO(Board board, std::string filename);
+  ~BoardIO();
+
+	Board GetBoard();
+	void SetBoard(Board board);
+	std::string GetFilePath();
 	bool ReadBoardFromFile();
 	bool WriteBoardToFile();
 
 private:
-	std::string filePath;
-	Board Board;
+	std::string FilePath;
+	Board CurrentBoard;
 
 	bool ReadBoard();
 	bool WriteBoard();
-	
-		
-
 };
