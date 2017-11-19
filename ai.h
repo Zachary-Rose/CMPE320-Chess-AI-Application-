@@ -33,6 +33,12 @@ private:
   Board GameBoard;
   PLAYER WhosTurnIsIt; // who's turn is it right now?
 
+
+	//finds if king is safe or not
+	//needs which king we are trying to protect, white is 1, black is 0
+	//needs move trying to be executed
+	bool isKingSafe(bool blackOrWhite, Move move);
+
   // generates list of all legal rook moves
   std::vector<Move> GenerateRookMoves();
 
@@ -40,13 +46,13 @@ private:
   std::vector<Move> GenerateKnightMoves();
 
   // generates list of all legal bishop moves
-  std::vector<Move> GenerateBishopMoves();
+  std::vector<Move> GenerateBishopMoves(int Start_i, int Start_j);
 
   // generates list of all legal king moves
-  std::vector<Move> GenerateKingMoves();
+  std::vector<Move> GenerateKingMoves(int Start_i, int Start_j);
 
   // generates list of all legal queen moves
-  std::vector<Move> GenerateQueenMoves();
+  std::vector<Move> GenerateQueenMoves(int Start_i, int Start_j);
 
   // generates list of all legal pawn moves
   std::vector<Move> GeneratePawnMoves();
