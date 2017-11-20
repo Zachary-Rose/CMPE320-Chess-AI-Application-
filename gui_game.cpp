@@ -27,7 +27,7 @@ void Gui_Game::start()
     board = new ChessBoard();
     board->placeSquares();
     drawGUI();
-    setCursor(":/images/chessImg/BlackPawn.png");
+    setCursor(":/chessImg/BlackPawn.png");
 }
 
 void Gui_Game::opponentMenu()

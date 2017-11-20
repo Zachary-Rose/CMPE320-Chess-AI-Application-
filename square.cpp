@@ -1,7 +1,7 @@
 #include "square.h"
 #include "gui_game.h"
 #include <QBrush>
-
+#include <iostream>
 
 extern Gui_Game* gui_game;
 
@@ -28,8 +28,15 @@ void Square::setImg(QString path, int x, int y)
     gui_game->scene->addItem(img);
 
 }
-/*
-void Square::mousePressEventt(QGraphicsSceneMouseEvent *event)
+
+void Square::removeImg()
 {
-    emit clickedS();
-}*/
+    std::cout << "Square::removeImg()" << std::endl;
+    gui_game->scene->removeItem(this->img);
+}
+
+void Square::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    emit clickedS(this);
+}
+//#include "square.moc"

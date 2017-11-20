@@ -28,19 +28,19 @@ void Button::mousePressEvent(QGraphicsSceneMouseEvent *event)
     emit clicked();
 }
 
-/*
-void Button::hoverEnterEvent(QGraphicsSceneMouseEvent *event)
+
+void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::cyan);
     setBrush(brush);
 }
-void Button::hoverLeaveEvent(QGraphicsSceneMouseEvent *event)
+void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::darkCyan);
     setBrush(brush);
 }
-*/
+

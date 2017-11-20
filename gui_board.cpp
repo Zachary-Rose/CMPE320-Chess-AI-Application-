@@ -2,18 +2,18 @@
 #include "gui_game.h"
 #include <QList>
 #include <QBrush>
+#include <QMouseEvent>
+#include <iostream>
 extern Gui_Game* gui_game;
 
-ChessBoard::ChessBoard(){}
 
-void ChessBoard::placeSquares()
-{
+
+ChessBoard::ChessBoard(){
     size = 80;
 
     // QList of string that contains the name of the Chess pieces in order that they will be displayed
     QList<QString> nameblack = {"BlackRook","BlackKnight","BlackBishop","BlackKing","BlackQueen","BlackBishop","BlackKnight","BlackRook"};
     QList<QString> namewhite = {"WhiteRook","WhiteKnight","WhiteBishop","WhiteKing","WhiteQueen","WhiteBishop","WhiteKnight","WhiteRook"};
-
 
     QString colour;
     for (size_t i = 0, n = 8; i < n; i++){
@@ -41,12 +41,25 @@ void ChessBoard::placeSquares()
             Square* square = new Square(i,j,size,colour);
             square->setPos(i*size + 192,j*size + 40);
             square->setImg(pieceName,i*size + 192,j*size + 40);
-            //connect(square, SIGNAL(clicked()),this,SLOT(choosePiece()));
+            int eight = 8;
+            connect(square, SIGNAL(clickedS(Square *)),this,SLOT(pickUpPiece(Square *)));
             squares.append(square);
             gui_game->scene->addItem(square);
         }
     }
 }
+
+void ChessBoard::placeSquares()
+{
+
+}
+
+void ChessBoard::pickUpPiece(Square *sq)
+{
+    //std::cout << "ChessBoard::pickUPPiece(Square *sq)" << std::endl;
+    sq->removeImg();
+}
+
 /*
 void ChessBoard::choosePiece()
 {
