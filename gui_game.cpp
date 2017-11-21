@@ -1,6 +1,7 @@
 #include "gui_game.h"
 #include "square.h"
 #include "button.h"
+#include "deadList.h"
 #include <QGraphicsTextItem>
 #include <QMouseEvent>
 
@@ -74,9 +75,11 @@ void Gui_Game::drawPanel(int x, int y, int width, int height, QColor color, doub
 
 void Gui_Game::drawGUI()
 {
+	deadList dead;
+	dead.showDead();
     drawPanel(0,0,192,690,Qt::darkCyan,1);
     drawPanel(832,0,192,690,Qt::darkCyan,1);
-
+	
     whosTurnText = new QGraphicsTextItem();
     setWhosTurn(QString("PLAYER1"));
     whosTurnText->setPos(490,0);

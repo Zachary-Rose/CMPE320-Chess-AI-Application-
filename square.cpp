@@ -24,7 +24,7 @@ void Square::setImg(QString path, int x, int y)
     img = new QGraphicsPixmapItem(path);
     img->setPos(x,y);
     img->setScale(0.27);
-    img->setZValue(1);
+    img->setZValue(5);
     gui_game->scene->addItem(img);
 
 }

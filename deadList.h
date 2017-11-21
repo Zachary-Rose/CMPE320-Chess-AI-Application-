@@ -8,12 +8,10 @@
 class deadList {
 public:
 	deadList();
-	void appendLists();
-	void setImg();
+	void appendLists(); 
+	void showDead();
 private:
-	QVector<char> deadBlack = {};
-	QVector<char> deadWhite = {};
-	QGraphicsPixmapItem* img;
-	int i;
-	int j;
+	QList<char> deadBlack; //QList of taken black pieces
+	QList<char> deadWhite; //QList of taken white pieces
+	QGraphicsPixmapItem* image; 
 };

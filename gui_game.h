@@ -41,5 +41,4 @@ private:
    QString whosTurn;
    QGraphicsTextItem* whosTurnText;
    bool pieceToMove; // true if a piece was chosen
-
 };
