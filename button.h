@@ -1,6 +1,8 @@
 #pragma once
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsPixmapItem>
+
 
 class Button: public QObject, public QGraphicsRectItem{
   Q_OBJECT

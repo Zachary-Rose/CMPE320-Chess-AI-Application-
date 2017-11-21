@@ -1,4 +1,4 @@
 <RCC>
-    <qresource prefix="chesspp">
-    </qresource>
+    <qresource prefix="/chesspp"/>
+    <qresource prefix="/"/>
 </RCC>

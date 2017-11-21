@@ -12,5 +12,6 @@
         <file>WhitePawn.png</file>
         <file>WhiteQueen.png</file>
         <file>WhiteRook.png</file>
+        <file>MainWindowBackground.png</file>
     </qresource>
 </RCC>
