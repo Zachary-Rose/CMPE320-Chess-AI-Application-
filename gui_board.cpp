@@ -59,16 +59,13 @@ void ChessBoard::placeSquares()
 void ChessBoard::pickUpPiece(Square *sq)
 {
     if (gui_game->getPieceToMove()){ // a piece was previously selected
-        if (sq->getImgPath() == " "){ // no image is present on this square
-            QString path = gui_game->getPathPieceToMove();
-            sq->setImg(path,sq->getI()*sq->getSize() + 192,sq->getJ()*sq->getSize() + 40);
-            sq->setImgPath(path);
-            gui_game->setPieceToMove(false);
-            gui_game->setPathPieceToMove(" ");
-            gui_game->setCursor(nullptr);
-        }else{
-            gui_game->setPieceToMove(true);
-        }
+        sq->removeImg(); // delete the piece that is curently on the square
+        QString path = gui_game->getPathPieceToMove();
+        sq->setImg(path,sq->getI()*sq->getSize() + 192,sq->getJ()*sq->getSize() + 40);
+        sq->setImgPath(path);
+        gui_game->setPieceToMove(false);
+        gui_game->setPathPieceToMove(" ");
+        gui_game->setCursor(nullptr);
 
     }else{ // a piece has not been selected yet
         gui_game->setPieceToMove(true);
