@@ -3,6 +3,7 @@
 #include "button.h"
 #include <QGraphicsTextItem>
 #include <QMouseEvent>
+#include <QPoint>
 
 Gui_Game::Gui_Game(QWidget *parent)
 {
@@ -156,7 +157,11 @@ void Gui_Game::setCursor(QString filename)
     }
     cursor = new QGraphicsPixmapItem();
     cursor->setPixmap(QPixmap(filename));
+    cursor->setScale(0.27);
+    cursor->setZValue(3);
     scene->addItem(cursor);
+    QPoint p = this->mapFromGlobal(QCursor::pos());
+    cursor->setPos(p);
 }
 
 void Gui_Game::mouseMoveEvent(QMouseEvent *event)

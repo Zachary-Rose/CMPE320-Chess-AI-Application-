@@ -62,6 +62,7 @@ void ChessBoard::pickUpPiece(Square *sq)
         if (sq->getImgPath() == " "){ // no image is present on this square
             QString path = gui_game->getPathPieceToMove();
             sq->setImg(path,sq->getI()*sq->getSize() + 192,sq->getJ()*sq->getSize() + 40);
+            sq->setImgPath(path);
             gui_game->setPieceToMove(false);
             gui_game->setPathPieceToMove(" ");
             gui_game->setCursor(nullptr);
