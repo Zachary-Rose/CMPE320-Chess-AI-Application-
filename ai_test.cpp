@@ -18,15 +18,19 @@ ai_test::~ai_test()
 void ai_test::runAll()
 {
   LOG_TRACE("ai_test::runAll()")
-  this->test_board();
+  this->test_ai();
 }
 
-void ai_test::test_board()
+void ai_test::test_ai()
 {
   LOG_TRACE("ai_test::test_board()");
-  Board b1;
-  LOG_INFO("Test operator<<. Log standard board")
-  LOG_INFO(b1);
 
-	LOG_INFO("Queens Moves:" );
+  LOG_INFO("Test move generation:");
+  Ai testAi;
+  testAi.PrintBoard();
+  std::vector<Move> moves = testAi.GenerateAllPossibleMoves();
+  for (auto & move : moves)
+  {
+    LOG_INFO(move);
+  }
 }

@@ -423,10 +423,6 @@ std::vector<Move> Ai::GenerateKingMoves(int Start_i, int Start_j)
 
 	}
 
-
-	
-
-
 	//j controls up and down
 	for (int j = -1; j <= 1; j++)
 	{
@@ -508,10 +504,90 @@ std::vector<Move> Ai::GenerateQueenMoves(int Start_i, int Start_j)
 }
 
 //--------------------------------------------------------------------------------
-std::vector<Move> Ai::GeneratePawnMoves(int i, int j)
+std::vector<Move> Ai::GeneratePawnMoves(int Start_i, int Start_j)
 {
   LOG_TRACE("std::vector<Move> Ai::GeneratePawnMoves(int i, int j)");
-  return std::vector<Move>();
+  int i = Start_i * 8 + Start_j;
+  std::vector<Move> PawnMoves;
+  bool isBlack = PieceIsBlack(GameBoard.GetPieceByPosition(Start_i, Start_j));
+
+  // advance pawn
+  if (isBlack)
+  {
+    int advanceRank = Start_i - 1;
+    if (!IndexOffBoard(advanceRank, Start_j) && GameBoard.GetPieceByPosition(advanceRank, Start_j) == EMPTY)
+    {
+      PawnMoves.push_back(Move(Start_i, Start_j, advanceRank, Start_j));
+    }
+    // double move advance if on home row
+    if (Start_i == 6)
+    {
+      // pawn is on home row
+      int doubleAdvanceRank = advanceRank - 1;
+      if (GameBoard.GetPieceByPosition(advanceRank, Start_j) == EMPTY && GameBoard.GetPieceByPosition(doubleAdvanceRank, Start_j) == EMPTY)
+      {
+        PawnMoves.push_back(Move(Start_i, Start_j, doubleAdvanceRank, Start_j));
+      }
+    }
+  }
+  else
+  {
+    int advanceRank = Start_i + 1;
+    if (!IndexOffBoard(advanceRank, Start_j) && GameBoard.GetPieceByPosition(advanceRank, Start_j) == EMPTY)
+    {
+      PawnMoves.push_back(Move(Start_i, Start_j, advanceRank, Start_j));
+    }
+    // double move advance if on home row
+    if (Start_i == 1)
+    {
+      // pawn is on home row
+      int doubleAdvanceRank = advanceRank + 1;
+      if (GameBoard.GetPieceByPosition(advanceRank, Start_j) == EMPTY && GameBoard.GetPieceByPosition(doubleAdvanceRank, Start_j) == EMPTY)
+      {
+        PawnMoves.push_back(Move(Start_i, Start_j, doubleAdvanceRank, Start_j));
+      }
+    }
+  }
+
+  // capture piece diagonally
+  if (isBlack)
+  {
+    int attackRank = Start_i - 1;
+    int attackLeft = Start_j - 1;
+    int attackRight = Start_j + 1;
+    if (!IndexOffBoard(attackRank, attackLeft) && PieceIsWhite(GameBoard.GetPieceByPosition(attackRank, attackLeft)))
+    {
+      char takenPiece = GameBoard.GetPieceByPosition(attackRank, attackLeft);
+      PawnMoves.push_back(Move(Start_i, Start_j, attackRank, attackLeft, takenPiece));
+    }
+    if (!IndexOffBoard(attackRank, attackRight) && PieceIsWhite(GameBoard.GetPieceByPosition(attackRank, attackRight)))
+    {
+      char takenPiece = GameBoard.GetPieceByPosition(attackRank, attackRight);
+      PawnMoves.push_back(Move(Start_i, Start_j, attackRank, attackRight, takenPiece));
+    }
+  }
+  else
+  {
+    int attackRank = Start_i + 1;
+    int attackLeft = Start_j - 1;
+    int attackRight = Start_j + 1;
+    if (!IndexOffBoard(attackRank, attackLeft) && PieceIsBlack(GameBoard.GetPieceByPosition(attackRank, attackLeft)))
+    {
+      char takenPiece = GameBoard.GetPieceByPosition(attackRank, attackLeft);
+      PawnMoves.push_back(Move(Start_i, Start_j, attackRank, attackLeft, takenPiece));
+    }
+    if (!IndexOffBoard(attackRank, attackRight) && PieceIsBlack(GameBoard.GetPieceByPosition(attackRank, attackRight)))
+    {
+      char takenPiece = GameBoard.GetPieceByPosition(attackRank, attackRight);
+      PawnMoves.push_back(Move(Start_i, Start_j, attackRank, attackRight, takenPiece));
+    }
+  }
+
+  // take en passant
+
+  // promote pawn
+
+  return PawnMoves;
 }
 
 //--------------------------------------------------------------------------------
@@ -528,27 +604,27 @@ std::vector<Move> Ai::GenerateAllPossibleMoves()
 		  if (GameBoard.GetPieceByPosition(i, j) == W_KING || GameBoard.GetPieceByPosition(i, j) == B_KING)
 		  {
 			  std::vector<Move> kingMoves = GenerateKingMoves(i, j);
-			  allMoves.insert(allMoves.end(), kingMoves.begin(), kingMoves.end());
+			  //allMoves.insert(allMoves.end(), kingMoves.begin(), kingMoves.end());
 		  }
 		  else if (GameBoard.GetPieceByPosition(i, j) == W_QUEEN || GameBoard.GetPieceByPosition(i, j) == B_QUEEN)
 		  {
 			  std::vector<Move> queenMoves = GenerateQueenMoves(i, j);
-			  allMoves.insert(allMoves.end(), queenMoves.begin(), queenMoves.end());
+			  //allMoves.insert(allMoves.end(), queenMoves.begin(), queenMoves.end());
 		  }
 		  else if (GameBoard.GetPieceByPosition(i, j) == W_BISHOP || GameBoard.GetPieceByPosition(i, j) == B_BISHOP)
 		  {
 			  std::vector<Move> bishopMoves = GenerateKingMoves(i, j);
-			  allMoves.insert(allMoves.end(), bishopMoves.begin(), bishopMoves.end());
+			  //allMoves.insert(allMoves.end(), bishopMoves.begin(), bishopMoves.end());
 		  }
 		  else if (GameBoard.GetPieceByPosition(i, j) == W_KNIGHT || GameBoard.GetPieceByPosition(i, j) == B_KNIGHT)
 		  {
 			  std::vector<Move> knightMoves = GenerateKnightMoves(i, j);
-			  allMoves.insert(allMoves.end(), knightMoves.begin(), knightMoves.end());
+			  //allMoves.insert(allMoves.end(), knightMoves.begin(), knightMoves.end());
 		  }
 		  else if (GameBoard.GetPieceByPosition(i, j) == W_ROOK || GameBoard.GetPieceByPosition(i, j) == B_ROOK)
 		  {
 			  std::vector<Move> rookMoves = GenerateRookMoves(i, j);
-			  allMoves.insert(allMoves.end(), rookMoves.begin(), rookMoves.end());
+			  //allMoves.insert(allMoves.end(), rookMoves.begin(), rookMoves.end());
 		  }
 		  else if (GameBoard.GetPieceByPosition(i, j) == W_PAWN || GameBoard.GetPieceByPosition(i, j) == B_PAWN)
 		  {
@@ -559,4 +635,45 @@ std::vector<Move> Ai::GenerateAllPossibleMoves()
   }
 
   return allMoves;
+}
+
+//--------------------------------------------------------------------------------
+
+bool Ai::PieceIsBlack(char piece)
+{
+  if (piece >= 97 && piece <= 122)
+  {
+    return true;
+  }
+  return false;
+}
+
+//--------------------------------------------------------------------------------
+bool Ai::PieceIsWhite(char piece)
+{
+  if (piece >= 65 && piece <= 90)
+  {
+    return true;
+  }
+  return false;
+}
+
+//--------------------------------------------------------------------------------
+bool Ai::IndexOffBoard(int value)
+{
+  if (value > 7 || value < 0)
+  {
+    return true;
+  }
+  return false;
+}
+
+//--------------------------------------------------------------------------------
+bool Ai::IndexOffBoard(int rank, int file)
+{
+  if (rank > 7 || rank < 0 || file > 7 || file < 0)
+  {
+    return true;
+  }
+  return false;
 }

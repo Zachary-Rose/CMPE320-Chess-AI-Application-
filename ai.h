@@ -3,6 +3,7 @@
 // local includes
 #include "board.h"
 #include "move.h"
+#include "common.h"
 
 // system includes
 #include <vector>
@@ -55,9 +56,19 @@ private:
   std::vector<Move> GenerateQueenMoves(int Start_i, int Start_j);
 
   // generates list of all legal pawn moves
-  std::vector<Move> GeneratePawnMoves(int, int);
+  std::vector<Move> GeneratePawnMoves(int Start_i, int Start_j);
 
+public: //TODO: for testing move generation
   // generates list of all possible legal moves
   std::vector<Move> GenerateAllPossibleMoves();
+  void PrintBoard()
+  {
+    LOG_INFO(GameBoard);
+  };
+private:
+  bool PieceIsBlack(char piece);
+  bool PieceIsWhite(char piece);
+  bool Ai::IndexOffBoard(int value);
+  bool IndexOffBoard(int rank, int file);
 };
 

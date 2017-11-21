@@ -10,14 +10,14 @@
 //--------------------------------------------------------------------------------
 Board::Board()
   : CurrentBoard({
-    {W_ROOK, W_KNIGHT, W_BISHOP, W_QUEEN , W_KING , W_BISHOP, W_KNIGHT, W_ROOK},
+    {W_ROOK, W_KNIGHT, W_BISHOP, W_KING  , W_QUEEN, W_BISHOP, W_KNIGHT, W_ROOK},
     {W_PAWN, W_PAWN  , W_PAWN  , W_PAWN  , W_PAWN , W_PAWN  , W_PAWN  , W_PAWN},
     {EMPTY , EMPTY   , EMPTY   , EMPTY   , EMPTY  , EMPTY   , EMPTY   , EMPTY },
     {EMPTY , EMPTY   , EMPTY   , EMPTY   , EMPTY  , EMPTY   , EMPTY   , EMPTY },
     {EMPTY , EMPTY   , EMPTY   , EMPTY   , EMPTY  , EMPTY   , EMPTY   , EMPTY },
     {EMPTY , EMPTY   , EMPTY   , EMPTY   , EMPTY  , EMPTY   , EMPTY   , EMPTY },
     {B_PAWN, B_PAWN  , B_PAWN  , B_PAWN  , B_PAWN , B_PAWN  , B_PAWN  , B_PAWN},
-    {B_ROOK, B_KNIGHT, B_BISHOP, B_QUEEN  , B_KING, B_BISHOP, B_KNIGHT, B_ROOK}})
+    {B_ROOK, B_KNIGHT, B_BISHOP, B_KING  , B_QUEEN, B_BISHOP, B_KNIGHT, B_ROOK}})
 {
   LOG_TRACE("board::board()")
 }
@@ -57,10 +57,10 @@ std::ostream& operator<<(std::ostream &os, Board &b)
 {
   LOG_TRACE("operator<<(std::ostream &os, board &b)");
   os << std::endl;
-  for (int i = 0; i < 8; i++)
+  for (int i = 7; i >= 0; i--)
   {
     os << "   +---+---+---+---+---+---+---+---+" << std::endl;
-    os << " " << 7 - i << " ";
+    os << " " << i << " ";
     for (int j = 0; j < 8; j++)
     {
       os << "| " << b.CurrentBoard[i][j] << " ";
@@ -68,6 +68,6 @@ std::ostream& operator<<(std::ostream &os, Board &b)
     os << "|" << std::endl;
   }
   os << "   +---+---+---+---+---+---+---+---+" << std::endl;
-  os << "     A   B   C   D   E   F   G   H" << std::endl;
+  os << "     0   1   2   3   4   5   6   7" << std::endl;
   return os;
 }
