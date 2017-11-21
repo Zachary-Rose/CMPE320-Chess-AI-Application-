@@ -35,13 +35,15 @@ ChessBoard::ChessBoard(){
                 pieceName = pieceName + namewhite[i];
             }else if(j == 6){
                 pieceName = pieceName + "WhitePawn";
+            }else{
+                pieceName = " ";
             }
 
             //Create the square.
             Square* square = new Square(i,j,size,colour);
             square->setPos(i*size + 192,j*size + 40);
             square->setImg(pieceName,i*size + 192,j*size + 40);
-            int eight = 8;
+            square->setImgPath(pieceName);
             connect(square, SIGNAL(clickedS(Square *)),this,SLOT(pickUpPiece(Square *)));
             squares.append(square);
             gui_game->scene->addItem(square);
@@ -56,12 +58,26 @@ void ChessBoard::placeSquares()
 
 void ChessBoard::pickUpPiece(Square *sq)
 {
+    if (gui_game->getPieceToMove()){ // a piece was previously selected
+        if (sq->getImgPath() == " "){ // no image is present on this square
+            QString path = gui_game->getPathPieceToMove();
+            sq->setImg(path,sq->getI()*sq->getSize() + 192,sq->getJ()*sq->getSize() + 40);
+            gui_game->setPieceToMove(false);
+            gui_game->setPathPieceToMove(" ");
+            gui_game->setCursor(nullptr);
+        }else{
+            gui_game->setPieceToMove(true);
+        }
+
+    }else{ // a piece has not been selected yet
+        gui_game->setPieceToMove(true);
+        gui_game->setCursor(sq->getImgPath());
+        gui_game->setPathPieceToMove(sq->getImgPath());
+        sq->removeImg();
+    }
+
     //std::cout << "ChessBoard::pickUPPiece(Square *sq)" << std::endl;
-    sq->removeImg();
+
 }
 
-/*
-void ChessBoard::choosePiece()
-{
 
-}*/

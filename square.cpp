@@ -5,8 +5,11 @@
 
 extern Gui_Game* gui_game;
 
-Square::Square(int i, int j, int size, QString colour)
+Square::Square(int x, int y, int sizeS, QString colour)
 {
+    i = x;
+    j = y;
+    size = sizeS;
     setRect(i,j,size,size);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
@@ -16,7 +19,6 @@ Square::Square(int i, int j, int size, QString colour)
         brush.setColor(Qt::lightGray);
     }
     setBrush(brush);
-
 }
 
 void Square::setImg(QString path, int x, int y)
@@ -31,12 +33,36 @@ void Square::setImg(QString path, int x, int y)
 
 void Square::removeImg()
 {
-    std::cout << "Square::removeImg()" << std::endl;
     gui_game->scene->removeItem(this->img);
+    imgPath = " ";
+}
+
+QString Square::getImgPath()
+{
+    return imgPath;
+}
+
+void Square::setImgPath(QString path)
+{
+    imgPath = path;
 }
 
 void Square::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     emit clickedS(this);
 }
-//#include "square.moc"
+
+int Square::getI()
+{
+    return i;
+}
+
+int Square::getJ()
+{
+    return j;
+}
+int Square::getSize()
+{
+    return size;
+}
+

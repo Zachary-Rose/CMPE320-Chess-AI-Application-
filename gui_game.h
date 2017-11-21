@@ -16,7 +16,11 @@ public:
 
     //methods
     QString getWhosTurn();
+    bool getPieceToMove();
+    QString getPathPieceToMove();
     void setWhosTurn(QString player);
+    void setPieceToMove(bool pickedUp);
+    void setPathPieceToMove(QString path);
     void displayMainMenu();
     void setCursor(QString filename);
 
@@ -41,5 +45,6 @@ private:
    QString whosTurn;
    QGraphicsTextItem* whosTurnText;
    bool pieceToMove; // true if a piece was chosen
+   QString pathPieceToMove; //folder path to the img. of the chosen piece
 
 };

@@ -18,6 +18,8 @@ Gui_Game::Gui_Game(QWidget *parent)
     pieceToMove = NULL;
     cursor = nullptr;
     setMouseTracking(true);
+    pieceToMove = false;
+    pathPieceToMove = " ";
 }
 
 // Gui_Game::start() starts the Chess Game. It creates the board and draws the two pannels.
@@ -27,7 +29,6 @@ void Gui_Game::start()
     board = new ChessBoard();
     board->placeSquares();
     drawGUI();
-    setCursor(":/chessImg/BlackPawn.png");
 }
 
 void Gui_Game::opponentMenu()
@@ -89,10 +90,30 @@ QString Gui_Game::getWhosTurn()
     return whosTurn;
 }
 
+bool Gui_Game::getPieceToMove()
+{
+    return pieceToMove;
+}
+
+QString Gui_Game::getPathPieceToMove()
+{
+    return pathPieceToMove;
+}
+
 void Gui_Game::setWhosTurn(QString player)
 {
     whosTurn = player;
     whosTurnText->setPlainText(QString("Whos' turn: ") + player);
+}
+
+void Gui_Game::setPieceToMove(bool pickedUp)
+{
+    pieceToMove = pickedUp;
+}
+
+void Gui_Game::setPathPieceToMove(QString path)
+{
+    pathPieceToMove = path;
 }
 
 void Gui_Game::displayMainMenu()
