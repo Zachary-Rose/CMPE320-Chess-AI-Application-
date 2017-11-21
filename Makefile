@@ -62,7 +62,8 @@ SOURCES       = main.cpp \
 		board.cpp \
 		common.cpp \
 		move.cpp qrc_chesspp.cpp \
-		qrc_images.cpp \
+		qrc_imagess.cpp \
+		qrc_img.cpp \
 		moc_button.cpp \
 		moc_gui_board.cpp \
 		moc_gui_game.cpp \
@@ -80,7 +81,8 @@ OBJECTS       = main.o \
 		common.o \
 		move.o \
 		qrc_chesspp.o \
-		qrc_images.o \
+		qrc_imagess.o \
+		qrc_img.o \
 		moc_button.o \
 		moc_gui_board.o \
 		moc_gui_game.o \
@@ -458,7 +460,8 @@ Makefile: chesspp.pro ../../../../Qt/5.9.2/clang_64/mkspecs/macx-clang/qmake.con
 		../../../../Qt/5.9.2/clang_64/mkspecs/features/lex.prf \
 		chesspp.pro \
 		chesspp.qrc \
-		chessImg/images.qrc \
+		chessImg/imagess.qrc \
+		img.qrc \
 		../../../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/QtWidgets.prl \
 		../../../../Qt/5.9.2/clang_64/lib/QtGui.framework/QtGui.prl \
 		../../../../Qt/5.9.2/clang_64/lib/QtCore.framework/QtCore.prl
@@ -625,7 +628,8 @@ Makefile: chesspp.pro ../../../../Qt/5.9.2/clang_64/mkspecs/macx-clang/qmake.con
 ../../../../Qt/5.9.2/clang_64/mkspecs/features/lex.prf:
 chesspp.pro:
 chesspp.qrc:
-chessImg/images.qrc:
+chessImg/imagess.qrc:
+img.qrc:
 ../../../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/QtWidgets.prl:
 ../../../../Qt/5.9.2/clang_64/lib/QtGui.framework/QtGui.prl:
 ../../../../Qt/5.9.2/clang_64/lib/QtCore.framework/QtCore.prl:
@@ -658,7 +662,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents chesspp.qrc chessImg/images.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents chesspp.qrc chessImg/imagess.qrc img.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.9.2/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ai.h ai_test.h board.h board_io.h board_position.h button.h common.h gui_board.h gui_game.h move.h square.h $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp gui_board.cpp button.cpp gui_game.cpp square.cpp ai_test.cpp ai.cpp board_io.cpp board_position.cpp board.cpp common.cpp move.cpp $(DISTDIR)/
@@ -686,28 +690,32 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: qrc_chesspp.cpp qrc_images.cpp
+compiler_rcc_make_all: qrc_chesspp.cpp qrc_imagess.cpp qrc_img.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_chesspp.cpp qrc_images.cpp
+	-$(DEL_FILE) qrc_chesspp.cpp qrc_imagess.cpp qrc_img.cpp
 qrc_chesspp.cpp: chesspp.qrc \
 		../../../../Qt/5.9.2/clang_64/bin/rcc
 	/Users/dianadumitrascu/Qt/5.9.2/clang_64/bin/rcc -name chesspp chesspp.qrc -o qrc_chesspp.cpp
 
-qrc_images.cpp: chessImg/images.qrc \
+qrc_imagess.cpp: chessImg/imagess.qrc \
+		../../../../Qt/5.9.2/clang_64/bin/rcc
+	/Users/dianadumitrascu/Qt/5.9.2/clang_64/bin/rcc -name imagess chessImg/imagess.qrc -o qrc_imagess.cpp
+
+qrc_img.cpp: img.qrc \
 		../../../../Qt/5.9.2/clang_64/bin/rcc \
-		chessImg/BlackPawn.png \
-		chessImg/WhiteKing.png \
-		chessImg/BlackBishop.png \
-		chessImg/BlackRook.png \
-		chessImg/WhiteBishop.png \
-		chessImg/BlackKing.png \
-		chessImg/BlackKnight.png \
-		chessImg/WhiteKnight.png \
-		chessImg/WhitePawn.png \
-		chessImg/BlackQueen.png \
-		chessImg/WhiteRook.png \
-		chessImg/WhiteQueen.png
-	/Users/dianadumitrascu/Qt/5.9.2/clang_64/bin/rcc -name images chessImg/images.qrc -o qrc_images.cpp
+		chessImg/BlackQueenB.png \
+		chessImg/WhiteKnightW.png \
+		chessImg/BlackKingB.png \
+		chessImg/WhiteQueenW.png \
+		chessImg/BlackBishopB.png \
+		chessImg/WhiteKingW.png \
+		chessImg/BlackPawnB.png \
+		chessImg/WhiteBishopW.png \
+		chessImg/BlackRookB.png \
+		chessImg/WhitePawnW.png \
+		chessImg/WhiteRookW.png \
+		chessImg/BlackKnightB.png
+	/Users/dianadumitrascu/Qt/5.9.2/clang_64/bin/rcc -name img img.qrc -o qrc_img.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
@@ -874,7 +882,9 @@ gui_game.o: gui_game.cpp gui_game.h \
 		../../../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
 		button.h \
 		../../../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QGraphicsSceneHoverEvent \
-		../../../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QGraphicsTextItem
+		../../../../Qt/5.9.2/clang_64/lib/QtWidgets.framework/Headers/QGraphicsTextItem \
+		../../../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/QPoint \
+		../../../../Qt/5.9.2/clang_64/lib/QtCore.framework/Headers/qpoint.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gui_game.o gui_game.cpp
 
 square.o: square.cpp square.h \
@@ -933,8 +943,11 @@ move.o: move.cpp move.h \
 qrc_chesspp.o: qrc_chesspp.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_chesspp.o qrc_chesspp.cpp
 
-qrc_images.o: qrc_images.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_images.o qrc_images.cpp
+qrc_imagess.o: qrc_imagess.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_imagess.o qrc_imagess.cpp
+
+qrc_img.o: qrc_img.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_img.o qrc_img.cpp
 
 moc_button.o: moc_button.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_button.o moc_button.cpp

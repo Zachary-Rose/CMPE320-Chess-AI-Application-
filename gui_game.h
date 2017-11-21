@@ -23,6 +23,7 @@ public:
     void setPathPieceToMove(QString path);
     void displayMainMenu();
     void setCursor(QString filename);
+    void changePlayer();
 
     //events
     void mouseMoveEvent(QMouseEvent *event);

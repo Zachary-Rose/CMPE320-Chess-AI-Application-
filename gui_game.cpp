@@ -16,11 +16,11 @@ Gui_Game::Gui_Game(QWidget *parent)
     scene->setSceneRect(0,0,1024,690);
     setScene(scene);
     //variable default
-    pieceToMove = NULL;
+    whosTurn = QString("PLAYER1");
     cursor = nullptr;
-    setMouseTracking(true);
     pieceToMove = false;
     pathPieceToMove = " ";
+    setMouseTracking(true);
 }
 
 // Gui_Game::start() starts the Chess Game. It creates the board and draws the two pannels.
@@ -133,7 +133,6 @@ void Gui_Game::displayMainMenu()
     int bxPos = this->width()/2 - playButton->boundingRect().width()/2;
     int byPos = 275;
     playButton->setPos(bxPos,byPos);
-    //connect(playButton, SIGNAL(clicked()),this,SLOT(start()));
     connect(playButton, SIGNAL(clicked()),this,SLOT(opponentMenu()));
 
     scene->addItem(playButton);
@@ -162,6 +161,17 @@ void Gui_Game::setCursor(QString filename)
     scene->addItem(cursor);
     QPoint p = this->mapFromGlobal(QCursor::pos());
     cursor->setPos(p);
+}
+
+void Gui_Game::changePlayer()
+{
+    if (whosTurn == QString("PLAYER1")){
+        whosTurn = QString("PLAYER2");
+    }else{
+        whosTurn = QString("PLAYER1");
+    }
+    whosTurnText->setPlainText(QString("Whos' turn: ") + whosTurn);
+
 }
 
 void Gui_Game::mouseMoveEvent(QMouseEvent *event)

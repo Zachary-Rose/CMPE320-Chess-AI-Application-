@@ -56,7 +56,8 @@ FORMS += \
 
 RESOURCES += \
     chesspp.qrc \
-    chessImg/images.qrc
+    chessImg/imagess.qrc \
+    img.qrc
 
 SUBDIRS += \
     chesspp.pro
