@@ -13,200 +13,6 @@ Ai::~Ai()
   LOG_TRACE("Ai::~Ai()");
 }
 
-bool Ai::isKingSafe(bool blackOrWhite, Move move) {
-
-	int temp = 1;
-	bool outOfBound = false;
-	char pieceAttack;
-	char king;
-
-	if (blackOrWhite) king = W_KING;
-	else king = B_KING;
-
-
-	//get the coordinates of the king we need to keep safe, this is done pretty poorly
-	int kingRow;
-	int kingCol;
-	for (int i = 0; i <= 7; i++)
-	{
-		for (int j = 0; j <= 7; i++)
-		{
-			if (GameBoard.GetPieceByPosition(i, j) == king)
-			{
-				kingCol = i;
-				kingRow = j;
-				break;
-			}
-		}
-	}
-
-	//execute the move given
-  GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), king);
-  GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), EMPTY);
-
-	//check to see if the king is safe
-	
-	//check if opposite bishop or queen can attack
-	for(int j = -1; j <= 1; j += 2)
-	{
-		//k controls up and down, -1 down, 1 up
-		for (int k = -1; k <= 1; k += 2)
-		{
-			if (kingCol + temp * j < 0 || kingCol + temp * j > 7
-				|| kingRow + temp * k < 0 || kingRow + temp * k > 7)
-			{
-				continue;
-			}
-
-			while (!outOfBound && GameBoard.GetPieceByPosition(kingCol + temp * j, kingRow + temp * k) == EMPTY)
-			{
-				temp++;
-				if (kingCol + temp * j < 0 || kingCol + temp * j > 7
-					|| kingRow + temp * k < 0 || kingRow + temp * k > 7)
-				{
-
-					outOfBound = true;
-				}
-			}
-
-			if (!outOfBound)
-			{
-				pieceAttack = GameBoard.GetPieceByPosition(kingCol + temp * j, kingRow + temp * k);
-				if ((blackOrWhite && islower(pieceAttack) && (pieceAttack == B_BISHOP || pieceAttack == B_QUEEN))
-					|| (!blackOrWhite && isupper(pieceAttack) && (pieceAttack == W_BISHOP || pieceAttack == W_QUEEN)))
-				{
-					//put that piece back where it came from or so help me
-					GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
-					GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
-					return false;
-				}
-			}
-			temp = 1;
-			outOfBound = false;
-		}
-	}
-		
-	//check if opposite rook or queen can attack
-	for (int j = -1; j <= 1; j += 2)
-	{
-
-		//checks if on the edge/corner because if it is, we can skip half of this
-		if (kingCol + temp * j < 0 || kingCol + temp * j > 7
-			|| kingRow + temp * j < 0 || kingRow + temp * j > 7)
-		{
-			continue;
-		}
-
-		//handles left and right 
-		while (!outOfBound && GameBoard.GetPieceByPosition(kingCol + temp * j, kingRow) == EMPTY)
-		{
-			temp++;
-			if (kingCol + temp * j < 0 || kingCol + temp * j > 7)
-			{
-				outOfBound = true;
-			}
-		}
-
-		if (!outOfBound)
-		{
-			pieceAttack = GameBoard.GetPieceByPosition(kingCol + temp * j, kingRow);
-			if ((blackOrWhite && islower(pieceAttack) && (pieceAttack == B_ROOK || pieceAttack == B_QUEEN))
-				|| (!blackOrWhite && isupper(pieceAttack) && (pieceAttack == W_ROOK || pieceAttack == W_QUEEN)))
-			{
-				GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
-        GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
-				return false;
-			}
-		}
-		//end of left and right
-
-		temp = 1;
-		outOfBound = false;
-
-		//handles up and down
-		while (!outOfBound && GameBoard.GetPieceByPosition(kingCol, kingRow + temp * j) == EMPTY)
-		{
-			temp++;
-			if (kingRow + temp * j < 0 || kingRow + temp * j > 7)
-			{
-				outOfBound = true;
-			}
-		}
-
-		if (!outOfBound)
-		{
-			pieceAttack = GameBoard.GetPieceByPosition(kingCol, kingRow + temp * j);
-			if ((blackOrWhite && islower(pieceAttack) && (pieceAttack == B_ROOK || pieceAttack == B_QUEEN))
-				|| (!blackOrWhite && isupper(pieceAttack) && (pieceAttack == W_ROOK || pieceAttack == W_QUEEN)))
-			{
-				GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
-				GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
-				return false;
-			}
-		}
-		//end of up and down
-
-		temp = 1;
-		outOfBound = false;
-	}
-
-	//check if opposite knight can attack (stolen from tedd's code and repurposed)
-	std::vector<std::vector<int>> pos{
-		{ 1, 2 },
-		{ 2, 1 },
-		{ -1, 2 },
-		{ -2, 1 },
-		{ 1, -2 },
-		{ 2, -1 },
-		{ -1, -2 },
-		{ -2, -1 } };
-	for (int k = 0; k < pos.size(); k++)
-	{
-		if (
-			(kingCol + pos[k][0] > 7) ||
-			(kingCol + pos[k][0] < 0) ||
-			(kingRow + pos[k][1] > 7) ||
-			(kingRow + pos[k][1] < 0))
-		{
-			continue;
-		}
-		else if ((blackOrWhite && GameBoard.GetPieceByPosition(kingCol + pos[k][0], kingRow + pos[k][1]) == B_ROOK) ||
-						 (!blackOrWhite && GameBoard.GetPieceByPosition(kingCol + pos[k][0], kingRow + pos[k][1]) == W_ROOK))
-		{
-			GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
-			GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
-			return false;
-		}
-	}
-	
-
-	//check if opposite pawn can attack
-	if (blackOrWhite && kingRow < 6)
-	{
-		if (GameBoard.GetPieceByPosition(kingCol + 1, kingRow + 1) == B_PAWN || GameBoard.GetPieceByPosition(kingCol - 1, kingRow + 1) == B_PAWN)
-		{
-			GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
-			GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
-			return false;
-		}
-	}
-	else if (!blackOrWhite && kingRow > 1)
-	{
-		if (GameBoard.GetPieceByPosition(kingCol + 1, kingRow - 1) == W_PAWN || GameBoard.GetPieceByPosition(kingCol - 1, kingRow - 1) == W_PAWN)
-		{
-			GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
-			GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
-			return false;
-		}
-	}
-
-	//we made it through the gauntlet, the move is valid
-	//put that piece back where it came from or so help me
-	GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
-	GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
-	return true;
-}
-
 //--------------------------------------------------------------------------------
 Move Ai::GetBestMove(PLAYER WhosTurnIsIt)
 {
@@ -215,10 +21,21 @@ Move Ai::GetBestMove(PLAYER WhosTurnIsIt)
 }
 
 //--------------------------------------------------------------------------------
-std::vector<Move> Ai::GetLegalPieceMoves(const BoardPosition& bp)
+std::vector<Move> Ai::GetLegalPieceMoves(BoardPosition& bp)
 {
   LOG_TRACE("std::vector<Move> Ai::GetLegalPieceMoves(const BoardPosition& bp)");
-  return std::vector<Move>();
+  std::vector<Move> allMoves = GenerateAllPossibleMoves();
+  std::vector<Move> pieceMoves;
+
+  for (auto& move : allMoves)
+  {
+    if (bp.i() == move.GetFromPiecePosition().i() && bp.j() == move.GetFromPiecePosition().j())
+    {
+      // move is for the piece of interest
+      pieceMoves.push_back(move);
+    }
+  }
+  return pieceMoves;
 }
 
 //--------------------------------------------------------------------------------
@@ -226,6 +43,201 @@ Move Ai::ExecuteMove(PLAYER WhosTurnIsIt, Move move)
 {
   LOG_TRACE("Move Ai::ExecuteMove(PLAYER WhosTurnIsIt, Move move)");
   return Move();
+}
+
+//--------------------------------------------------------------------------------
+bool Ai::isKingSafe(bool blackOrWhite, Move move) {
+
+  int temp = 1;
+  bool outOfBound = false;
+  char pieceAttack;
+  char king;
+
+  if (blackOrWhite) king = W_KING;
+  else king = B_KING;
+
+
+  //get the coordinates of the king we need to keep safe, this is done pretty poorly
+  int kingRow;
+  int kingCol;
+  for (int i = 0; i <= 7; i++)
+  {
+    for (int j = 0; j <= 7; i++)
+    {
+      if (GameBoard.GetPieceByPosition(i, j) == king)
+      {
+        kingCol = i;
+        kingRow = j;
+        break;
+      }
+    }
+  }
+
+  //execute the move given
+  GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), king);
+  GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), EMPTY);
+
+  //check to see if the king is safe
+
+  //check if opposite bishop or queen can attack
+  for (int j = -1; j <= 1; j += 2)
+  {
+    //k controls up and down, -1 down, 1 up
+    for (int k = -1; k <= 1; k += 2)
+    {
+      if (kingCol + temp * j < 0 || kingCol + temp * j > 7
+        || kingRow + temp * k < 0 || kingRow + temp * k > 7)
+      {
+        continue;
+      }
+
+      while (!outOfBound && GameBoard.GetPieceByPosition(kingCol + temp * j, kingRow + temp * k) == EMPTY)
+      {
+        temp++;
+        if (kingCol + temp * j < 0 || kingCol + temp * j > 7
+          || kingRow + temp * k < 0 || kingRow + temp * k > 7)
+        {
+
+          outOfBound = true;
+        }
+      }
+
+      if (!outOfBound)
+      {
+        pieceAttack = GameBoard.GetPieceByPosition(kingCol + temp * j, kingRow + temp * k);
+        if ((blackOrWhite && islower(pieceAttack) && (pieceAttack == B_BISHOP || pieceAttack == B_QUEEN))
+          || (!blackOrWhite && isupper(pieceAttack) && (pieceAttack == W_BISHOP || pieceAttack == W_QUEEN)))
+        {
+          //put that piece back where it came from or so help me
+          GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+          GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
+          return false;
+        }
+      }
+      temp = 1;
+      outOfBound = false;
+    }
+  }
+
+  //check if opposite rook or queen can attack
+  for (int j = -1; j <= 1; j += 2)
+  {
+
+    //checks if on the edge/corner because if it is, we can skip half of this
+    if (kingCol + temp * j < 0 || kingCol + temp * j > 7
+      || kingRow + temp * j < 0 || kingRow + temp * j > 7)
+    {
+      continue;
+    }
+
+    //handles left and right 
+    while (!outOfBound && GameBoard.GetPieceByPosition(kingCol + temp * j, kingRow) == EMPTY)
+    {
+      temp++;
+      if (kingCol + temp * j < 0 || kingCol + temp * j > 7)
+      {
+        outOfBound = true;
+      }
+    }
+
+    if (!outOfBound)
+    {
+      pieceAttack = GameBoard.GetPieceByPosition(kingCol + temp * j, kingRow);
+      if ((blackOrWhite && islower(pieceAttack) && (pieceAttack == B_ROOK || pieceAttack == B_QUEEN))
+        || (!blackOrWhite && isupper(pieceAttack) && (pieceAttack == W_ROOK || pieceAttack == W_QUEEN)))
+      {
+        GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+        GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
+        return false;
+      }
+    }
+    //end of left and right
+
+    temp = 1;
+    outOfBound = false;
+
+    //handles up and down
+    while (!outOfBound && GameBoard.GetPieceByPosition(kingCol, kingRow + temp * j) == EMPTY)
+    {
+      temp++;
+      if (kingRow + temp * j < 0 || kingRow + temp * j > 7)
+      {
+        outOfBound = true;
+      }
+    }
+
+    if (!outOfBound)
+    {
+      pieceAttack = GameBoard.GetPieceByPosition(kingCol, kingRow + temp * j);
+      if ((blackOrWhite && islower(pieceAttack) && (pieceAttack == B_ROOK || pieceAttack == B_QUEEN))
+        || (!blackOrWhite && isupper(pieceAttack) && (pieceAttack == W_ROOK || pieceAttack == W_QUEEN)))
+      {
+        GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+        GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
+        return false;
+      }
+    }
+    //end of up and down
+
+    temp = 1;
+    outOfBound = false;
+  }
+
+  //check if opposite knight can attack (stolen from tedd's code and repurposed)
+  std::vector<std::vector<int>> pos{
+    { 1, 2 },
+    { 2, 1 },
+    { -1, 2 },
+    { -2, 1 },
+    { 1, -2 },
+    { 2, -1 },
+    { -1, -2 },
+    { -2, -1 } };
+  for (int k = 0; k < pos.size(); k++)
+  {
+    if (
+      (kingCol + pos[k][0] > 7) ||
+      (kingCol + pos[k][0] < 0) ||
+      (kingRow + pos[k][1] > 7) ||
+      (kingRow + pos[k][1] < 0))
+    {
+      continue;
+    }
+    else if ((blackOrWhite && GameBoard.GetPieceByPosition(kingCol + pos[k][0], kingRow + pos[k][1]) == B_ROOK) ||
+      (!blackOrWhite && GameBoard.GetPieceByPosition(kingCol + pos[k][0], kingRow + pos[k][1]) == W_ROOK))
+    {
+      GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+      GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
+      return false;
+    }
+  }
+
+
+  //check if opposite pawn can attack
+  if (blackOrWhite && kingRow < 6)
+  {
+    if (GameBoard.GetPieceByPosition(kingCol + 1, kingRow + 1) == B_PAWN || GameBoard.GetPieceByPosition(kingCol - 1, kingRow + 1) == B_PAWN)
+    {
+      GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+      GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
+      return false;
+    }
+  }
+  else if (!blackOrWhite && kingRow > 1)
+  {
+    if (GameBoard.GetPieceByPosition(kingCol + 1, kingRow - 1) == W_PAWN || GameBoard.GetPieceByPosition(kingCol - 1, kingRow - 1) == W_PAWN)
+    {
+      GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+      GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
+      return false;
+    }
+  }
+
+  //we made it through the gauntlet, the move is valid
+  //put that piece back where it came from or so help me
+  GameBoard.SetPiece(move.GetFromPiecePosition().i(), move.GetFromPiecePosition().j(), king);
+  GameBoard.SetPiece(move.GetToPiecePosition().i(), move.GetToPiecePosition().j(), move.GetCapturedPiece());
+  return true;
 }
 
 //--------------------------------------------------------------------------------
@@ -604,27 +616,27 @@ std::vector<Move> Ai::GenerateAllPossibleMoves()
 		  if (GameBoard.GetPieceByPosition(i, j) == W_KING || GameBoard.GetPieceByPosition(i, j) == B_KING)
 		  {
 			  std::vector<Move> kingMoves = GenerateKingMoves(i, j);
-			  //allMoves.insert(allMoves.end(), kingMoves.begin(), kingMoves.end());
+			  allMoves.insert(allMoves.end(), kingMoves.begin(), kingMoves.end());
 		  }
 		  else if (GameBoard.GetPieceByPosition(i, j) == W_QUEEN || GameBoard.GetPieceByPosition(i, j) == B_QUEEN)
 		  {
 			  std::vector<Move> queenMoves = GenerateQueenMoves(i, j);
-			  //allMoves.insert(allMoves.end(), queenMoves.begin(), queenMoves.end());
+			  allMoves.insert(allMoves.end(), queenMoves.begin(), queenMoves.end());
 		  }
-		  else if (GameBoard.GetPieceByPosition(i, j) == W_BISHOP || GameBoard.GetPieceByPosition(i, j) == B_BISHOP)
-		  {
-			  std::vector<Move> bishopMoves = GenerateKingMoves(i, j);
-			  //allMoves.insert(allMoves.end(), bishopMoves.begin(), bishopMoves.end());
-		  }
+      else if (GameBoard.GetPieceByPosition(i, j) == W_BISHOP || GameBoard.GetPieceByPosition(i, j) == B_BISHOP)
+      {
+        std::vector<Move> bishopMoves = GenerateKingMoves(i, j);
+        allMoves.insert(allMoves.end(), bishopMoves.begin(), bishopMoves.end());
+      }
 		  else if (GameBoard.GetPieceByPosition(i, j) == W_KNIGHT || GameBoard.GetPieceByPosition(i, j) == B_KNIGHT)
 		  {
 			  std::vector<Move> knightMoves = GenerateKnightMoves(i, j);
-			  //allMoves.insert(allMoves.end(), knightMoves.begin(), knightMoves.end());
+			  allMoves.insert(allMoves.end(), knightMoves.begin(), knightMoves.end());
 		  }
 		  else if (GameBoard.GetPieceByPosition(i, j) == W_ROOK || GameBoard.GetPieceByPosition(i, j) == B_ROOK)
 		  {
 			  std::vector<Move> rookMoves = GenerateRookMoves(i, j);
-			  //allMoves.insert(allMoves.end(), rookMoves.begin(), rookMoves.end());
+			  allMoves.insert(allMoves.end(), rookMoves.begin(), rookMoves.end());
 		  }
 		  else if (GameBoard.GetPieceByPosition(i, j) == W_PAWN || GameBoard.GetPieceByPosition(i, j) == B_PAWN)
 		  {

@@ -24,7 +24,7 @@ public:
   Move GetBestMove(PLAYER WhosTurnIsIt);
 
   // generates list of legal piece moves for piece at bp
-  std::vector<Move> GetLegalPieceMoves(const BoardPosition& bp);
+  std::vector<Move> GetLegalPieceMoves(BoardPosition& bp);
 
   // executes move (either made by player via GUI, or by computer via AI)
   Move ExecuteMove(PLAYER WhosTurnIsIt, Move move);

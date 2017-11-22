@@ -29,7 +29,16 @@ void ai_test::test_ai()
   Ai testAi;
   testAi.PrintBoard();
   std::vector<Move> moves = testAi.GenerateAllPossibleMoves();
-  for (auto & move : moves)
+  for (auto& move : moves)
+  {
+    LOG_INFO(move);
+  }
+
+  // board position of white knight on (0,1)
+  BoardPosition wk(0, 1);
+  std::vector<Move> knightMoves = testAi.GetLegalPieceMoves(wk);
+  LOG_INFO("Testing legal moves of single piece, in this case white knight on (0,1)");
+  for (auto& move : knightMoves)
   {
     LOG_INFO(move);
   }
