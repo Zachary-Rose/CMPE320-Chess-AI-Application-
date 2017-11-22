@@ -1,5 +1,8 @@
 #pragma once
 
+// local includes
+#include "board_position.h"
+
 // system includes
 #include <vector>
 #include <ostream>
@@ -33,13 +36,14 @@ public:
    * (0, 0) and (0, 'a') represent bottom left corner (white rook on home row)
    */
   char GetPieceByPosition(int i, int j);
-
+  char GetPieceByPosition(BoardPosition& bp);
   /*
    *
    */
   boardRepresentation GetBoard();
 
   void SetPiece(int i, int j, char piece);
+  void SetPiece(BoardPosition& bp, char piece);
 
 private:
   // Internal representation of the current state of the board.

@@ -27,7 +27,7 @@ public:
   std::vector<Move> GetLegalPieceMoves(BoardPosition& bp);
 
   // executes move (either made by player via GUI, or by computer via AI)
-  Move ExecuteMove(PLAYER WhosTurnIsIt, Move move);
+  void ExecuteMove(Move move);
 
 private:
   //member variables
@@ -66,6 +66,8 @@ public: //TODO: for testing move generation
     LOG_INFO(GameBoard);
   };
 private:
+  std::vector<Move> moveHistory;
+
   bool PieceIsBlack(char piece);
   bool PieceIsWhite(char piece);
   bool Ai::IndexOffBoard(int value);

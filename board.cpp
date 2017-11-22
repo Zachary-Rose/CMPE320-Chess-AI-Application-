@@ -40,6 +40,16 @@ char Board::GetPieceByPosition(int i, int j)
 }
 
 //--------------------------------------------------------------------------------
+char Board::GetPieceByPosition(BoardPosition& bp)
+{
+  LOG_TRACE("char Board::GetPieceByPosition(BoardPosition& bp)");
+  int i = bp.i();
+  int j = bp.j();
+
+  return GetPieceByPosition(i, j);
+}
+
+//--------------------------------------------------------------------------------
 boardRepresentation Board::GetBoard()
 {
   LOG_TRACE("GetBoard()");
@@ -47,9 +57,21 @@ boardRepresentation Board::GetBoard()
   return this->CurrentBoard;
 }
 
+//--------------------------------------------------------------------------------
 void Board::SetPiece(int i, int j, char piece)
 {
+  LOG_TRACE("void Board::SetPiece(int i, int j, char piece)");
   CurrentBoard[i][j] = piece;
+}
+
+//--------------------------------------------------------------------------------
+void Board::SetPiece(BoardPosition& bp, char piece)
+{
+  LOG_TRACE("void Board::SetPiece(BoardPosition& bp, char piece)");
+  int i = bp.i();
+  int j = bp.j();
+  
+  SetPiece(i, j, piece);
 }
 
 //--------------------------------------------------------------------------------

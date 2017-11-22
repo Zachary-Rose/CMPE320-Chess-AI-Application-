@@ -42,4 +42,21 @@ void ai_test::test_ai()
   {
     LOG_INFO(move);
   }
+
+  // move the knight
+  std::cout << "Moving the white knight on (0,1)." << std::endl;
+  Move moveKnight(0, 1, 2, 2);
+  testAi.ExecuteMove(moveKnight);
+
+  std::cout << "Did the knight move?" << std::endl;
+  testAi.PrintBoard();
+
+  // re output the posible knight moves of the moved knight on (2,2)
+  BoardPosition wkm(2, 2);
+  std::vector<Move> knightMovesAfterMovement = testAi.GetLegalPieceMoves(wkm);
+  LOG_INFO("Testing legal moves of single piece, in this case moved white knight on (2,2)");
+  for (auto& move : knightMovesAfterMovement)
+  {
+    LOG_INFO(move);
+  }
 }

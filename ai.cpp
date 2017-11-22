@@ -39,10 +39,24 @@ std::vector<Move> Ai::GetLegalPieceMoves(BoardPosition& bp)
 }
 
 //--------------------------------------------------------------------------------
-Move Ai::ExecuteMove(PLAYER WhosTurnIsIt, Move move)
+void Ai::ExecuteMove(Move move)
 {
   LOG_TRACE("Move Ai::ExecuteMove(PLAYER WhosTurnIsIt, Move move)");
-  return Move();
+
+  // TODO: add check of move legality
+
+  BoardPosition from = move.GetFromPiecePosition();
+  BoardPosition to = move.GetToPiecePosition();
+  char movingPiece = GameBoard.GetPieceByPosition(from);
+
+  // set from position to empty
+  GameBoard.SetPiece(from, ' ');
+
+  // set to position to the moving piece
+  GameBoard.SetPiece(to, movingPiece);
+
+  // log move
+  moveHistory.push_back(move);
 }
 
 //--------------------------------------------------------------------------------
