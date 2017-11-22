@@ -28,6 +28,8 @@ void Gui_Game::start()
     board = new ChessBoard();
     board->placeSquares();
     drawGUI();
+	deadList dead;
+	dead.showDead();
     setCursor(":/images/chessImg/BlackPawn.png");
 }
 
@@ -75,8 +77,8 @@ void Gui_Game::drawPanel(int x, int y, int width, int height, QColor color, doub
 
 void Gui_Game::drawGUI()
 {
-	deadList dead;
-	dead.showDead();
+	//deadList dead;
+	//dead.showDead();
     drawPanel(0,0,192,690,Qt::darkCyan,1);
     drawPanel(832,0,192,690,Qt::darkCyan,1);
 	
