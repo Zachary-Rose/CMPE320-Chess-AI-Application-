@@ -13,5 +13,6 @@
         <file>WhiteQueen.png</file>
         <file>WhiteRook.png</file>
         <file>MainWindowBackground.png</file>
+        <file>PlayBackground.png</file>
     </qresource>
 </RCC>

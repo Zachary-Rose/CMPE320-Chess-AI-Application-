@@ -34,9 +34,30 @@ void Gui_Game::start()
 void Gui_Game::opponentMenu()
 {
     scene->clear();
+    //Create Title
+
+    QGraphicsTextItem *titleA = new QGraphicsTextItem(QString("Chess"));
+    QFont titleFontA ("Cambria",50);
+    titleA->setFont(titleFontA);
+    titleA->setDefaultTextColor(Qt::white);
+    int titleAxPos = this->width()/2 -250;
+    int titleAyPos = 75;
+    titleA->setPos(titleAxPos,titleAyPos);
+    titleA->setZValue(1);
+    scene->addItem(titleA);
+
+    QGraphicsTextItem *titleB = new QGraphicsTextItem(QString("By Team BuckHorn"));
+    QFont titleFontB ("Cambria",15);
+    titleB->setFont(titleFontB);
+    titleB->setDefaultTextColor(Qt::white);
+    int titleBxPos = this->width()/2 - 200;
+    int titleByPos = 150;
+    titleB->setPos(titleBxPos,titleByPos);
+    titleB->setZValue(1);
+    scene->addItem(titleB);
 
     //Create Title
-    QGraphicsTextItem *title = new QGraphicsTextItem(QString("Who are you playing?"));
+    QGraphicsTextItem *title = new QGraphicsTextItem(QString("Select Game"));
     QFont titleFont("cosmic sans", 30);
     title->setFont(titleFont);
     int txPos = this->width() / 2 - title->boundingRect().width() / 2;
@@ -47,24 +68,23 @@ void Gui_Game::opponentMenu()
     QGraphicsPixmapItem* item;
     QString path = ":/chessImg/MainWindowBackground.png";
     item = new QGraphicsPixmapItem(path);
-   item->setScale(1);
-   item->setZValue(-1);
-   scene->addItem(item);
-
+    item->setScale(1);
+    item->setZValue(-1);
+    scene->addItem(item);
 
     //Create the Play Vs A.I Button
-    Button *playVsAiButton = new Button(QString("Play vs A.I"));
-    int bxPos = this->width() / 2 - playVsAiButton->boundingRect().width() / 2;
-    int byPos = 275;
+    Button *playVsAiButton = new Button(QString("Player vs Computer"));
+    int bxPos = 850;
+    int byPos = 450;
     playVsAiButton->setPos(bxPos, byPos);
     connect(playVsAiButton, SIGNAL(clicked()), this, SLOT(start()));
     scene->addItem(playVsAiButton);
 
     //Create the Play vs Player Button
-    Button *playVsPlayerButton = new Button(QString("Play vs Player"));
-    int ppxPos = this->width() / 2 - playVsPlayerButton->boundingRect().width() / 2;
-    int ppyPos = 350;
-    playVsPlayerButton->setPos(ppxPos, ppyPos);
+    Button *playVsPlayerButton = new Button(QString("Player vs Player"));
+    int qxPos = 850;
+    int qyPos = 525;
+    playVsPlayerButton->setPos(qxPos, qyPos);
     connect(playVsPlayerButton, SIGNAL(clicked()), this, SLOT(start()));
     scene->addItem(playVsPlayerButton);
 }
@@ -113,7 +133,7 @@ void Gui_Game::displayMainMenu()
     titleA->setFont(titleFontA);
     titleA->setDefaultTextColor(Qt::white);
     int titleAxPos = this->width()/2 -250;
-    int titleAyPos = 0;
+    int titleAyPos = 75;
     titleA->setPos(titleAxPos,titleAyPos);
     titleA->setZValue(1);
     scene->addItem(titleA);
@@ -123,11 +143,13 @@ void Gui_Game::displayMainMenu()
     titleB->setFont(titleFontB);
     titleB->setDefaultTextColor(Qt::white);
     int titleBxPos = this->width()/2 - 200;
-    int titleByPos = 75;
+    int titleByPos = 150;
     titleB->setPos(titleBxPos,titleByPos);
     titleB->setZValue(1);
     scene->addItem(titleB);
 \
+
+
     QGraphicsPixmapItem* item;
     QString path = ":/chessImg/MainWindowBackground.png";
     item = new QGraphicsPixmapItem(path);
@@ -138,8 +160,8 @@ void Gui_Game::displayMainMenu()
 
     //Create the Play Button
     Button *playButton = new Button(QString("Play"));
-    int bxPos = 750;
-    int byPos = 350;
+    int bxPos = 850;
+    int byPos = 450;
     playButton->setPos(bxPos,byPos);
     //connect(playButton, SIGNAL(clicked()),this,SLOT(start()));
     connect(playButton, SIGNAL(clicked()),this,SLOT(opponentMenu()));
@@ -148,8 +170,8 @@ void Gui_Game::displayMainMenu()
 
     //Create the Quit Button
     Button *closeButton = new Button(QString("Quit"));
-    int qxPos = 750;
-    int qyPos = 425;
+    int qxPos = 850;
+    int qyPos = 525;
     closeButton->setPos(qxPos,qyPos);
     connect(closeButton,SIGNAL(clicked()),this,SLOT(close()));
     scene->addItem(closeButton);
