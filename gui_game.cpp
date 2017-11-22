@@ -28,7 +28,7 @@ void Gui_Game::start()
     board = new ChessBoard();
     board->placeSquares();
     drawGUI();
-    setCursor(":/images/chessImg/BlackPawn.png");
+    setCursor("./chessImg/BlackPawn.png");
 }
 
 void Gui_Game::opponentMenu()
@@ -45,7 +45,7 @@ void Gui_Game::opponentMenu()
     scene->addItem(title);
 
     QGraphicsPixmapItem* item;
-    QString path = ":/chessImg/MainWindowBackground.png";
+    QString path = "./chessImg/MainWindowBackground.png";
     item = new QGraphicsPixmapItem(path);
    item->setScale(1);
    item->setZValue(-1);
