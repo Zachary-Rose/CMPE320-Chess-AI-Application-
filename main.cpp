@@ -1,5 +1,4 @@
 ﻿// local includes
-#include "chesspp.h"
 #include "common.h"
 #include "board.h"
 #include "ai.h"
@@ -11,12 +10,16 @@
 
 // Qt includes
 #include <QtWidgets/QApplication>
+#include "gui_game.h"
 
 // constants
 const bool runAiTests = true;
 
 // global logger
 Logger chessPPLogger(LOG_LEVEL_INFO);
+
+// global GUI handle
+Gui_Game* gui_game;
 
 // writes end of log file on application close
 void closeLogger(void)
@@ -49,8 +52,9 @@ int main(int argc, char *argv[])
   }
 
   QApplication a(argc, argv);
-  chesspp w;
-  w.show();
+  gui_game = new Gui_Game();
+  gui_game->show();
+  gui_game->displayMainMenu();
   int retVal = a.exec();
   atexit(closeLogger);
   return retVal;

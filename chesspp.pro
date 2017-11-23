@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-10-10T23:04:02
+# Project created by QtCreator 2017-11-02T21:17:30
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = chesspp
+TARGET = ChessGame_v2
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -24,15 +24,52 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        chesspp.cpp \
-    common.cpp
+    main.cpp \
+    gui_board.cpp \
+    button.cpp \
+    gui_game.cpp \
+    square.cpp \
+    ai_test.cpp \
+    ai.cpp \
+    board_io.cpp \
+    board_position.cpp \
+    board.cpp \
+    common.cpp \
+    move.cpp
 
 HEADERS += \
-        chesspp.h \
-    common.h
+    ai.h \
+    ai_test.h \
+    board.h \
+    board_io.h \
+    board_position.h \
+    button.h \
+    common.h \
+    gui_board.h \
+    gui_game.h \
+    move.h \
+    square.h
 
 FORMS += \
-        chesspp.ui
+        mainwindow.ui \
 
-CONFIG += c++11
+RESOURCES += \
+    chesspp.qrc \
+    chessImg/images.qrc
+
+SUBDIRS += \
+    chesspp.pro
+
+DISTFILES += \
+    chessImg/BlackBishop.png \
+    chessImg/BlackKing.png \
+    chessImg/BlackKnight.png \
+    chessImg/BlackPawn.png \
+    chessImg/BlackQueen.png \
+    chessImg/BlackRook.png \
+    chessImg/WhiteBishop.png \
+    chessImg/WhiteKing.png \
+    chessImg/WhiteKnight.png \
+    chessImg/WhitePawn.png \
+    chessImg/WhiteQueen.png \
+    chessImg/WhiteRook.png

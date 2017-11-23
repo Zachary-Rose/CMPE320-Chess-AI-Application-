@@ -12,7 +12,7 @@
   #include <Windows.h>
 #else
   #include <sys/stat.h>
-  const std::string logPath = "/Users/mark/Class/cisc320-proj/logs";
+  const std::string logPath = "/Users/dianadumitrascu/Class/cisc320-proj/logs";
 #endif
 
 //--------------------------------------------------------------------------------
