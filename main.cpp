@@ -20,6 +20,8 @@ Logger chessPPLogger(LOG_LEVEL_INFO);
 
 // global GUI handle
 Gui_Game* gui_game;
+Ai* gui_ai;
+
 
 // writes end of log file on application close
 void closeLogger(void)
@@ -55,6 +57,7 @@ int main(int argc, char *argv[])
   gui_game = new Gui_Game();
   gui_game->show();
   gui_game->displayMainMenu();
+  gui_ai = new Ai();
   int retVal = a.exec();
   atexit(closeLogger);
   return retVal;

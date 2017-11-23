@@ -2,11 +2,14 @@
 #include "gui_game.h"
 #include "move.h"
 #include "board.h"
+#include "ai.h"
+#include "board_position.h"
 #include <QList>
 #include <QBrush>
 #include <QMouseEvent>
 #include <iostream>
 extern Gui_Game* gui_game;
+extern Ai* gui_ai;
 
 
 
@@ -89,6 +92,29 @@ char ChessBoard::getCharfromPath(QString path)
     }
 }
 
+void ChessBoard::showAiMove(Move toMove)
+{
+    BoardPosition from = toMove.GetFromPiecePosition();
+    BoardPosition to = toMove.GetToPiecePosition();
+    int fromI =   from.i();
+    int fromJ = from.j();
+    int toI = to.i();
+    int toJ = to.j();
+    char piece = toMove.GetCapturedPiece();
+
+}
+
+Square* ChessBoard::getSquare(int i, int j)
+{
+    foreach (Square* sq, squares) {
+       int x = sq->getI();
+       int y = sq->getJ();
+       if (x == i && y == j){
+           return sq;
+       }
+    }
+}
+
 
 
 void ChessBoard::pickUpPiece(Square *sq)
@@ -100,17 +126,20 @@ void ChessBoard::pickUpPiece(Square *sq)
         int x2 = sq->getI();
         int y2 = sq->getJ();
         char c = gui_game->get_pieceToMoveChar();
-        Move moveObj = Move(x1,y1,x2,y2,c);
-
-        sq->removeImg(); // delete the piece that is curently on the square
-
-        sq->setImg(path,sq->getI()*sq->getSize() + 192,sq->getJ()*sq->getSize() + 40);
-        sq->setImgPath(path);
-        gui_game->setPieceToMove(false);
-        gui_game->setPathPieceToMove(" ");
-        gui_game->setCursor(nullptr);
-        gui_game->changePlayer();
-        gui_game->set_pieceToMoveChar(EMPTY);
+        Move moveObj = Move(y1,x1,y2,x2,c);
+        if(gui_ai->IsMoveLegal(moveObj)){
+            sq->removeImg(); // delete the piece that is curently on the square
+            sq->setImg(path,sq->getI()*sq->getSize() + 192,sq->getJ()*sq->getSize() + 40);
+            sq->setImgPath(path);
+            gui_game->setPieceToMove(false);
+            gui_game->setPathPieceToMove(" ");
+            gui_game->setCursor(nullptr);
+            gui_game->changePlayer();
+            gui_game->set_pieceToMoveChar(EMPTY);
+        }else{
+            // TODO: Create QMessage Box ----------------- TODO
+            std::cout << "This move is illegal!!!! " << std::endl;
+        }
 
     }else{ // a piece has not been selected yet
         //QStringRef subString(sq->getImgPath(),5,2);

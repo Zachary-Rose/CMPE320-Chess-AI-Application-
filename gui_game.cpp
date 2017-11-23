@@ -2,6 +2,7 @@
 #include "square.h"
 #include "button.h"
 #include "board.h"
+#include "ai.h"
 #include <QGraphicsTextItem>
 #include <QMouseEvent>
 #include <QPoint>
