@@ -13,12 +13,9 @@
 class ChessBoard:public QObject{
     Q_OBJECT
 
-/*
-class ChessBoard{
-*/
+
 public:
     ChessBoard();
-    void placeSquares();
     char getCharfromPath(QString path);
     void showAiMove(Move toMove);
     Square *getSquare(int i, int j);

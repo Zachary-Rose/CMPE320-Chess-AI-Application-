@@ -41,7 +41,8 @@ public:
 
 
 public slots:
-   void start();
+   void startAI();  // start player vs ai mode
+   void startPP();  // start player vs player mode
    void opponentMenu();
 
 private:
@@ -49,6 +50,7 @@ private:
    void drawPanel(int x, int y, int width, int height, QColor color, double opacity);
    void drawGUI();
    //attributes
+   QString playMode;
    QString whosTurn;
    QGraphicsTextItem* whosTurnText;
    bool pieceToMove; // true if a piece was chosen

@@ -29,12 +29,20 @@ Gui_Game::Gui_Game(QWidget *parent)
 }
 
 // Gui_Game::start() starts the Chess Game. It creates the board and draws the two pannels.
-void Gui_Game::start()
+void Gui_Game::startAI()
 {
     scene->clear();
     board = new ChessBoard();
-    board->placeSquares();
     drawGUI();
+    playMode = "AI";
+}
+
+void Gui_Game::startPP()
+{
+    scene->clear();
+    board = new ChessBoard();
+    drawGUI();
+    playMode = "PP";
 }
 
 void Gui_Game::opponentMenu()
@@ -55,7 +63,7 @@ void Gui_Game::opponentMenu()
     int bxPos = this->width() / 2 - playVsAiButton->boundingRect().width() / 2;
     int byPos = 275;
     playVsAiButton->setPos(bxPos, byPos);
-    connect(playVsAiButton, SIGNAL(clicked()), this, SLOT(start()));
+    connect(playVsAiButton, SIGNAL(clicked()), this, SLOT(startAI()));
     scene->addItem(playVsAiButton);
 
     //Create the Play vs Player Button
@@ -63,7 +71,7 @@ void Gui_Game::opponentMenu()
     int ppxPos = this->width() / 2 - playVsPlayerButton->boundingRect().width() / 2;
     int ppyPos = 350;
     playVsPlayerButton->setPos(ppxPos, ppyPos);
-    connect(playVsPlayerButton, SIGNAL(clicked()), this, SLOT(start()));
+    connect(playVsPlayerButton, SIGNAL(clicked()), this, SLOT(startPP()));
     scene->addItem(playVsPlayerButton);
 }
 

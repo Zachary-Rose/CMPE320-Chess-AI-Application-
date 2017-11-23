@@ -56,10 +56,11 @@ ChessBoard::ChessBoard(){
     }
 }
 
+/*
 void ChessBoard::placeSquares()
 {
 
-}
+}*/
 
 char ChessBoard::getCharfromPath(QString path)
 {
@@ -136,6 +137,7 @@ void ChessBoard::pickUpPiece(Square *sq)
             gui_game->setCursor(nullptr);
             gui_game->changePlayer();
             gui_game->set_pieceToMoveChar(EMPTY);
+            gui_ai->ExecuteMove(moveObj);
         }else{
             // TODO: Create QMessage Box ----------------- TODO
             std::cout << "This move is illegal!!!! " << std::endl;
@@ -154,6 +156,7 @@ void ChessBoard::pickUpPiece(Square *sq)
                 gui_game->set_jSquareSelected(sq->getJ());
                 gui_game->set_pieceToMoveChar(getCharfromPath(sq->getImgPath()));
                 sq->removeImg();
+
             }
         }
     }
