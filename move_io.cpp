@@ -1,70 +1,70 @@
 #pragma once
 #include "move_io.h"
 
-Move_IO::Move_IO()
+MoveIO::MoveIO()
 {
 	this->Filepath = "games";
 }
 
-Move_IO::Move_IO(std::vector<Move> moves)
+MoveIO::MoveIO(std::vector<Move> moves)
 {
 	this->Moves = moves;
 	this->Filepath = "games";
 }
 
-Move_IO::Move_IO(std::string filename)
+MoveIO::MoveIO(std::string filename)
 {
 	this->Filepath = filename;
 }
 
-Move_IO::Move_IO(std::vector<Move> moves, std::string filename)
+MoveIO::MoveIO(std::vector<Move> moves, std::string filename)
 {
 	this->Moves = moves;
 	this->Filepath = filename;
 }
 
-Move_IO::~Move_IO()
+MoveIO::~MoveIO()
 {
 
 }
 
-std::vector<Move> Move_IO::GetMoves()
+std::vector<Move> MoveIO::GetMoves()
 {
 	std::vector<Move> moves;
 	return moves;
 }
-void Move_IO::SetMoves(std::vector<Move>)
+void MoveIO::SetMoves(std::vector<Move>)
 {
 
 }
 
-std::string Move_IO::GetFilepath()
+std::string MoveIO::GetFilepath()
 {
 	return "";
 }
 
-void Move_IO::setFilepath(std::string filename)
+void MoveIO::setFilepath(std::string filename)
 {
 
 }
 
-bool Move_IO::WriteMovesToFile()
+bool MoveIO::WriteMovesToFile()
 {
 	return true;
 }
 
-std::vector<Move> Move_IO::ReadMovesFromFile()
+std::vector<Move> MoveIO::ReadMovesFromFile()
 {
 	std::vector<Move> moves;
 	return moves;
 }
 
-bool Move_IO::ReadMoves()
+bool MoveIO::ReadMoves()
 {
 	return true;
 }
 
-bool Move_IO::WriteMoves()
+bool MoveIO::WriteMoves()
 {
 	return true;
 }

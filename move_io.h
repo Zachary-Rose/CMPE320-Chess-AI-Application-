@@ -4,14 +4,14 @@
 #include <string>
 #include <vector>
 
-class Move_IO
+class MoveIO
 {
 public:
-	Move_IO();
-	Move_IO(std::vector<Move>moves );
-	Move_IO(std::string filename);
-	Move_IO(std::vector<Move> moves, std::string filename);
-	~Move_IO();
+	MoveIO();
+	MoveIO(std::vector<Move>moves );
+	MoveIO(std::string filename);
+	MoveIO(std::vector<Move> moves, std::string filename);
+  ~MoveIO();
 
 	std::vector<Move> GetMoves();
 	void SetMoves(std::vector<Move>);

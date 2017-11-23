@@ -5,6 +5,6 @@ public:
   ai_test();
   ~ai_test();
   void runAll();
-  void test_board();
+  void test_ai();
 };
 
