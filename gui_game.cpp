@@ -1,6 +1,7 @@
 #include "gui_game.h"
 #include "square.h"
 #include "button.h"
+#include "board.h"
 #include <QGraphicsTextItem>
 #include <QMouseEvent>
 #include <QPoint>
@@ -21,6 +22,9 @@ Gui_Game::Gui_Game(QWidget *parent)
     pieceToMove = false;
     pathPieceToMove = " ";
     setMouseTracking(true);
+    iSquareSelected = -1;
+    jSquareSelected = -1;
+    pieceToMoveChar = EMPTY;
 }
 
 // Gui_Game::start() starts the Chess Game. It creates the board and draws the two pannels.
@@ -101,6 +105,21 @@ QString Gui_Game::getPathPieceToMove()
     return pathPieceToMove;
 }
 
+int Gui_Game::get_iSquareSelected()
+{
+    return iSquareSelected;
+}
+
+int Gui_Game::get_jSquareSelected()
+{
+    return jSquareSelected;
+}
+
+char Gui_Game::get_pieceToMoveChar()
+{
+    return pieceToMoveChar;
+}
+
 void Gui_Game::setWhosTurn(QString player)
 {
     whosTurn = player;
@@ -115,6 +134,21 @@ void Gui_Game::setPieceToMove(bool pickedUp)
 void Gui_Game::setPathPieceToMove(QString path)
 {
     pathPieceToMove = path;
+}
+
+void Gui_Game::set_iSquareSelected(int x)
+{
+    iSquareSelected = x;
+}
+
+void Gui_Game::set_jSquareSelected(int y)
+{
+    jSquareSelected = y;
+}
+
+void Gui_Game::set_pieceToMoveChar(char c)
+{
+    pieceToMoveChar = c;
 }
 
 void Gui_Game::displayMainMenu()

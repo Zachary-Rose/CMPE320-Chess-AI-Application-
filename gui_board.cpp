@@ -1,5 +1,7 @@
 #include "gui_board.h"
 #include "gui_game.h"
+#include "move.h"
+#include "board.h"
 #include <QList>
 #include <QBrush>
 #include <QMouseEvent>
@@ -56,17 +58,59 @@ void ChessBoard::placeSquares()
 
 }
 
+char ChessBoard::getCharfromPath(QString path)
+{
+    //std::cout <<path.mid(11,path.size()-12).toUtf8().constData()<<std::endl;
+    QString pieceName = path.mid(11,path.size()-12);
+    if (pieceName == "BlackKing"){
+        return B_KING;
+    }else if (pieceName == "BlackQueen"){
+        return B_QUEEN;
+    }else if (pieceName == "BlackBishop"){
+        return B_BISHOP;
+    }else if (pieceName == "BlackRook"){
+        return B_ROOK;
+    }else if (pieceName == "BlackKnight"){
+        return B_KNIGHT;
+    }else if (pieceName == "BlackPawn"){
+        return B_PAWN;
+    }else if (pieceName == "WhiteKing"){
+        return W_KING;
+    }else if (pieceName == "WhiteQueen"){
+        return W_QUEEN;
+    }else if (pieceName == "WhiteBishop"){
+        return  W_BISHOP;
+    }else if (pieceName == "WhiteRook"){
+         return W_ROOK;
+    }else if (pieceName == "WhiteKnight"){
+        return W_KNIGHT;
+    }else if (pieceName == "WhitePawn"){
+        return W_PAWN;
+    }
+}
+
+
+
 void ChessBoard::pickUpPiece(Square *sq)
 {
     if (gui_game->getPieceToMove()){ // a piece was previously selected
-        sq->removeImg(); // delete the piece that is curently on the square
         QString path = gui_game->getPathPieceToMove();
+        int x1 = gui_game->get_iSquareSelected();
+        int y1 = gui_game->get_jSquareSelected();
+        int x2 = sq->getI();
+        int y2 = sq->getJ();
+        char c = gui_game->get_pieceToMoveChar();
+        Move moveObj = Move(x1,y1,x2,y2,c);
+
+        sq->removeImg(); // delete the piece that is curently on the square
+
         sq->setImg(path,sq->getI()*sq->getSize() + 192,sq->getJ()*sq->getSize() + 40);
         sq->setImgPath(path);
         gui_game->setPieceToMove(false);
         gui_game->setPathPieceToMove(" ");
         gui_game->setCursor(nullptr);
         gui_game->changePlayer();
+        gui_game->set_pieceToMoveChar(EMPTY);
 
     }else{ // a piece has not been selected yet
         //QStringRef subString(sq->getImgPath(),5,2);
@@ -77,6 +121,9 @@ void ChessBoard::pickUpPiece(Square *sq)
                 gui_game->setPieceToMove(true);
                 gui_game->setCursor(sq->getImgPath());
                 gui_game->setPathPieceToMove(sq->getImgPath());
+                gui_game->set_iSquareSelected(sq->getI());
+                gui_game->set_jSquareSelected(sq->getJ());
+                gui_game->set_pieceToMoveChar(getCharfromPath(sq->getImgPath()));
                 sq->removeImg();
             }
         }

@@ -15,7 +15,7 @@ public:
   Move(const BoardPosition& From, const BoardPosition& To);
   Move(const BoardPosition& From, const BoardPosition& To, const char& TakenPiece);
   ~Move();
-  
+
   //accessors
   BoardPosition GetFromPiecePosition();
   BoardPosition GetToPiecePosition();

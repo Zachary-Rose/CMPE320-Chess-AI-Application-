@@ -18,6 +18,7 @@ class ChessBoard{
 public:
     ChessBoard();
     void placeSquares();
+    char getCharfromPath(QString path);
     //events
     void mouseMoveEvent(QMouseEvent *event);
 

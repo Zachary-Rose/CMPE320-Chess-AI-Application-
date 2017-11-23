@@ -65,4 +65,3 @@ int Square::getSize()
 {
     return size;
 }
-

@@ -18,9 +18,15 @@ public:
     QString getWhosTurn();
     bool getPieceToMove();
     QString getPathPieceToMove();
+    int get_iSquareSelected();
+    int get_jSquareSelected();
+    char get_pieceToMoveChar();
     void setWhosTurn(QString player);
     void setPieceToMove(bool pickedUp);
     void setPathPieceToMove(QString path);
+    void set_iSquareSelected(int x);
+    void set_jSquareSelected(int y);
+    void set_pieceToMoveChar(char c);
     void displayMainMenu();
     void setCursor(QString filename);
     void changePlayer();
@@ -47,5 +53,8 @@ private:
    QGraphicsTextItem* whosTurnText;
    bool pieceToMove; // true if a piece was chosen
    QString pathPieceToMove; //folder path to the img. of the chosen piece
+   int iSquareSelected; // the i value of the square that the user clicked on
+   int jSquareSelected; // the j value of the square that the user clicked on
+   char pieceToMoveChar;
 
 };
