@@ -19,27 +19,27 @@ Move::Move()
 Move::Move(int From_i, int From_j, int To_i, int To_j)
 {
   LOG_TRACE("Move::Move(int From_i, int From_j, int To_i, int To_j)");
-  BoardPosition from(From_i, From_j);
-  BoardPosition to(To_i, To_j);
-  Move(from, to, EMPTY);
+  this->From = BoardPosition(From_i, From_j);
+  this->To = BoardPosition(To_i, To_j);
+  this->CapturedPiece = EMPTY;
 }
 
 //--------------------------------------------------------------------------------
 Move::Move(int From_i, int From_j, int To_i, int To_j, char CapturedPiece)
 {
   LOG_TRACE("Move::Move(int From_i, int From_j, int To_i, int To_j, char CapturedPiece)");
-  BoardPosition from(From_i, From_j);
-  BoardPosition to(To_i, To_j);
-  Move(From, To, CapturedPiece);
+  this->From = BoardPosition(From_i, From_j);
+  this->To = BoardPosition(To_i, To_j);
+  this->CapturedPiece = CapturedPiece;
 }
 
-Move::Move(const BoardPosition& From, const BoardPosition& To)
+Move::Move(const BoardPosition From, const BoardPosition To)
 {
   LOG_TRACE("Move::Move(const BoardPosition& From, const BoardPosition& To)");
   Move(From, To, EMPTY);
 }
 
-Move::Move(const BoardPosition& From, const BoardPosition& To, const char& CapturedPiece)
+Move::Move(const BoardPosition From, const BoardPosition To, const char CapturedPiece)
 {
   LOG_TRACE("Move::Move(const BoardPosition& From, const BoardPosition& To, const char& CapturedPiece)");
   this->From = From;
@@ -79,6 +79,6 @@ std::ostream& operator<<(std::ostream& os, Move& m)
   os << "From: (" << from.i() << ", " << from.j() << ") ";
   os << "To: (" << to.i() << ", " << to.j() << ") ";
   os << "Captured piece: ";
-  capturedPiece == ' '? os << "None." : os << capturedPiece << ".";
+  capturedPiece == ' '? os << "None" : os << capturedPiece;
   return os;
 }

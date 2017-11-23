@@ -13,6 +13,8 @@ public:
   int i();
   int j();
 
+  bool operator==(BoardPosition& bp);
+
 private:
   // friend functions
   friend std::ostream& operator<<(std::ostream &os, BoardPosition &bp);

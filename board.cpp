@@ -1,14 +1,16 @@
 // Local includes
 #include "board.h"
 #include "common.h"
+#include "move.h"
 
 // System includes
 #include <iostream>
+#include <vector>
 
 //--------------------------------------------------------------------------------
 Board::Board()
   : CurrentBoard({
-    {W_ROOK, W_KNIGHT, W_BISHOP, W_QUEEN , W_KING , W_BISHOP, W_KNIGHT, W_ROOK},
+    {W_ROOK, W_KNIGHT, W_BISHOP, W_KING  , W_QUEEN, W_BISHOP, W_KNIGHT, W_ROOK},
     {W_PAWN, W_PAWN  , W_PAWN  , W_PAWN  , W_PAWN , W_PAWN  , W_PAWN  , W_PAWN},
     {EMPTY , EMPTY   , EMPTY   , EMPTY   , EMPTY  , EMPTY   , EMPTY   , EMPTY },
     {EMPTY , EMPTY   , EMPTY   , EMPTY   , EMPTY  , EMPTY   , EMPTY   , EMPTY },
@@ -38,6 +40,16 @@ char Board::GetPieceByPosition(int i, int j)
 }
 
 //--------------------------------------------------------------------------------
+char Board::GetPieceByPosition(BoardPosition& bp)
+{
+  LOG_TRACE("char Board::GetPieceByPosition(BoardPosition& bp)");
+  int i = bp.i();
+  int j = bp.j();
+
+  return GetPieceByPosition(i, j);
+}
+
+//--------------------------------------------------------------------------------
 boardRepresentation Board::GetBoard()
 {
   LOG_TRACE("GetBoard()");
@@ -46,14 +58,31 @@ boardRepresentation Board::GetBoard()
 }
 
 //--------------------------------------------------------------------------------
+void Board::SetPiece(int i, int j, char piece)
+{
+  LOG_TRACE("void Board::SetPiece(int i, int j, char piece)");
+  CurrentBoard[i][j] = piece;
+}
+
+//--------------------------------------------------------------------------------
+void Board::SetPiece(BoardPosition& bp, char piece)
+{
+  LOG_TRACE("void Board::SetPiece(BoardPosition& bp, char piece)");
+  int i = bp.i();
+  int j = bp.j();
+  
+  SetPiece(i, j, piece);
+}
+
+//--------------------------------------------------------------------------------
 std::ostream& operator<<(std::ostream &os, Board &b)
 {
   LOG_TRACE("operator<<(std::ostream &os, board &b)");
   os << std::endl;
-  for (int i = 0; i < 8; i++)
+  for (int i = 7; i >= 0; i--)
   {
     os << "   +---+---+---+---+---+---+---+---+" << std::endl;
-    os << " " << 7 - i << " ";
+    os << " " << i << " ";
     for (int j = 0; j < 8; j++)
     {
       os << "| " << b.CurrentBoard[i][j] << " ";
@@ -61,6 +90,6 @@ std::ostream& operator<<(std::ostream &os, Board &b)
     os << "|" << std::endl;
   }
   os << "   +---+---+---+---+---+---+---+---+" << std::endl;
-  os << "     A   B   C   D   E   F   G   H" << std::endl;
+  os << "     0   1   2   3   4   5   6   7" << std::endl;
   return os;
 }

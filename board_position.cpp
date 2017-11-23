@@ -52,6 +52,16 @@ int BoardPosition::j()
   return this->Pos_j;
 }
 
+bool BoardPosition::operator==(BoardPosition& bp)
+{
+  if (bp.Pos_i == Pos_i && bp.Pos_j == Pos_j)
+  {
+    
+    return true;
+  }
+  return false;
+}
+
 //--------------------------------------------------------------------------------
 std::ostream& operator<<(std::ostream &os, BoardPosition &bp)
 {

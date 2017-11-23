@@ -12,8 +12,8 @@ public:
   Move();
   Move(int From_i, int From_j, int To_i, int To_j);
   Move(int From_i, int From_j, int To_i, int To_j, char TakenPiece);
-  Move(const BoardPosition& From, const BoardPosition& To);
-  Move(const BoardPosition& From, const BoardPosition& To, const char& TakenPiece);
+  Move(const BoardPosition From, const BoardPosition To);
+  Move(const BoardPosition From, const BoardPosition To, const char TakenPiece);
   ~Move();
 
   //accessors
