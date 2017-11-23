@@ -60,6 +60,23 @@ void Ai::ExecuteMove(Move move)
 }
 
 //--------------------------------------------------------------------------------
+bool Ai::IsMoveLegal(Move move)
+{
+  BoardPosition from = move.GetFromPiecePosition();
+  BoardPosition to = move.GetToPiecePosition();
+  std::vector<Move> legalMoves = GetLegalPieceMoves(from);
+
+  for (auto& legalMove : legalMoves)
+  {
+    if (to == legalMove.GetToPiecePosition())
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+//--------------------------------------------------------------------------------
 bool Ai::isKingSafe(bool blackOrWhite, Move move) {
 
   int temp = 1;

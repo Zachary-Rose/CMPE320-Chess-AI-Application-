@@ -29,6 +29,9 @@ public:
   // executes move (either made by player via GUI, or by computer via AI)
   void ExecuteMove(Move move);
 
+  // checks if a move is legal
+  bool IsMoveLegal(Move move);
+
 private:
   //member variables
   Board GameBoard;

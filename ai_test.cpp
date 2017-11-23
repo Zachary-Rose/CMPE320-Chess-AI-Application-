@@ -59,4 +59,12 @@ void ai_test::test_ai()
   {
     LOG_INFO(move);
   }
+
+  // check if knight moving from (2,2) to (4,3) is legal
+  Move knigthTo43(2, 2, 4, 3);
+  std::string kTo43Valid = testAi.IsMoveLegal(knigthTo43) ? "true" : "false";
+  std::cout << "Knight can move from (2,2) to (4,3)? (should be true)   " << kTo43Valid << std::endl;
+  Move knightTo44(2, 2, 4, 4); 
+  std::string kTo44Valid = testAi.IsMoveLegal(knightTo44) ? "true" : "false";
+  std::cout << "Knight can move from (2,2) to (4,4)? (should be false)  " << kTo44Valid << std::endl;
 }
