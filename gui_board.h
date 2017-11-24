@@ -5,6 +5,7 @@
 #include "square.h"
 #include "move.h"
 
+
 /* ChessBoard contains a collection of Square objects.
  * - all 64 Square Objects are stored in 'squares' QList.
  * - placeSquares() is a function that gets called only one time at the beginning of the game.

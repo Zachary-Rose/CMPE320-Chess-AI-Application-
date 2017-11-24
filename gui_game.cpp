@@ -6,6 +6,7 @@
 #include <QGraphicsTextItem>
 #include <QMouseEvent>
 #include <QPoint>
+#include <QGraphicsPixmapItem>
 
 Gui_Game::Gui_Game(QWidget *parent)
 {
@@ -48,9 +49,30 @@ void Gui_Game::startPP()
 void Gui_Game::opponentMenu()
 {
     scene->clear();
+    //Create Title
+
+    QGraphicsTextItem *titleA = new QGraphicsTextItem(QString("Chess"));
+    QFont titleFontA ("Cambria",50);
+    titleA->setFont(titleFontA);
+    titleA->setDefaultTextColor(Qt::white);
+    int titleAxPos = this->width()/2 -250;
+    int titleAyPos = 75;
+    titleA->setPos(titleAxPos,titleAyPos);
+    titleA->setZValue(1);
+    scene->addItem(titleA);
+
+    QGraphicsTextItem *titleB = new QGraphicsTextItem(QString("By Team BuckHorn"));
+    QFont titleFontB ("Cambria",15);
+    titleB->setFont(titleFontB);
+    titleB->setDefaultTextColor(Qt::white);
+    int titleBxPos = this->width()/2 - 200;
+    int titleByPos = 150;
+    titleB->setPos(titleBxPos,titleByPos);
+    titleB->setZValue(1);
+    scene->addItem(titleB);
 
     //Create Title
-    QGraphicsTextItem *title = new QGraphicsTextItem(QString("Who are you playing?"));
+    QGraphicsTextItem *title = new QGraphicsTextItem(QString("Select Game"));
     QFont titleFont("cosmic sans", 30);
     title->setFont(titleFont);
     int txPos = this->width() / 2 - title->boundingRect().width() / 2;
@@ -58,19 +80,26 @@ void Gui_Game::opponentMenu()
     title->setPos(txPos, tyPos);
     scene->addItem(title);
 
+    QGraphicsPixmapItem* item;
+    QString path = ":/chessImg/MainWindowBackground.png";
+    item = new QGraphicsPixmapItem(path);
+    item->setScale(1);
+    item->setZValue(-1);
+    scene->addItem(item);
+
     //Create the Play Vs A.I Button
-    Button *playVsAiButton = new Button(QString("Play vs A.I"));
-    int bxPos = this->width() / 2 - playVsAiButton->boundingRect().width() / 2;
-    int byPos = 275;
+    Button *playVsAiButton = new Button(QString("Player vs Computer"));
+    int bxPos = 850;
+    int byPos = 450;
     playVsAiButton->setPos(bxPos, byPos);
     connect(playVsAiButton, SIGNAL(clicked()), this, SLOT(startAI()));
     scene->addItem(playVsAiButton);
 
     //Create the Play vs Player Button
-    Button *playVsPlayerButton = new Button(QString("Play vs Player"));
-    int ppxPos = this->width() / 2 - playVsPlayerButton->boundingRect().width() / 2;
-    int ppyPos = 350;
-    playVsPlayerButton->setPos(ppxPos, ppyPos);
+    Button *playVsPlayerButton = new Button(QString("Player vs Player"));
+    int qxPos = 850;
+    int qyPos = 525;
+    playVsPlayerButton->setPos(qxPos, qyPos);
     connect(playVsPlayerButton, SIGNAL(clicked()), this, SLOT(startPP()));
     scene->addItem(playVsPlayerButton);
 }
@@ -163,18 +192,41 @@ void Gui_Game::set_pieceToMoveChar(char c)
 void Gui_Game::displayMainMenu()
 {
     //Create Title
-    QGraphicsTextItem *title = new QGraphicsTextItem(QString("Chess Game"));
-    QFont titleFont ("cosmic sans",50);
-    title->setFont(titleFont);
-    int txPos = this->width()/2 - title->boundingRect().width()/2;
-    int tyPos = 150;
-    title->setPos(txPos,tyPos);
-    scene->addItem(title);
+
+    QGraphicsTextItem *titleA = new QGraphicsTextItem(QString("Chess"));
+    QFont titleFontA ("Cambria",50);
+    titleA->setFont(titleFontA);
+    titleA->setDefaultTextColor(Qt::white);
+    int titleAxPos = this->width()/2 -250;
+    int titleAyPos = 75;
+    titleA->setPos(titleAxPos,titleAyPos);
+    titleA->setZValue(1);
+    scene->addItem(titleA);
+
+    QGraphicsTextItem *titleB = new QGraphicsTextItem(QString("By Team BuckHorn"));
+    QFont titleFontB ("Cambria",15);
+    titleB->setFont(titleFontB);
+    titleB->setDefaultTextColor(Qt::white);
+    int titleBxPos = this->width()/2 - 200;
+    int titleByPos = 150;
+    titleB->setPos(titleBxPos,titleByPos);
+    titleB->setZValue(1);
+    scene->addItem(titleB);
+\
+
+
+    QGraphicsPixmapItem* item;
+    QString path = ":/chessImg/MainWindowBackground.png";
+    item = new QGraphicsPixmapItem(path);
+   item->setScale(1);
+   item->setZValue(-1);
+   scene->addItem(item);
+
 
     //Create the Play Button
     Button *playButton = new Button(QString("Play"));
-    int bxPos = this->width()/2 - playButton->boundingRect().width()/2;
-    int byPos = 275;
+    int bxPos = 850;
+    int byPos = 450;
     playButton->setPos(bxPos,byPos);
     connect(playButton, SIGNAL(clicked()),this,SLOT(opponentMenu()));
 
@@ -182,8 +234,8 @@ void Gui_Game::displayMainMenu()
 
     //Create the Quit Button
     Button *closeButton = new Button(QString("Quit"));
-    int qxPos = this->width()/2 - closeButton->boundingRect().width()/2;
-    int qyPos = 350;
+    int qxPos = 850;
+    int qyPos = 525;
     closeButton->setPos(qxPos,qyPos);
     connect(closeButton,SIGNAL(clicked()),this,SLOT(close()));
     scene->addItem(closeButton);

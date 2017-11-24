@@ -2,6 +2,8 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsSceneHoverEvent>
+#include <QGraphicsPixmapItem>
+
 
 class Button: public QObject, public QGraphicsRectItem{
   Q_OBJECT
