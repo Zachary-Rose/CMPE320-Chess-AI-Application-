@@ -89,7 +89,7 @@ void Gui_Game::opponentMenu()
 
     //Create the Play Vs A.I Button
     Button *playVsAiButton = new Button(QString("Player vs Computer"));
-    int bxPos = 850;
+    int bxPos = 700;
     int byPos = 450;
     playVsAiButton->setPos(bxPos, byPos);
     connect(playVsAiButton, SIGNAL(clicked()), this, SLOT(startAI()));
@@ -97,7 +97,7 @@ void Gui_Game::opponentMenu()
 
     //Create the Play vs Player Button
     Button *playVsPlayerButton = new Button(QString("Player vs Player"));
-    int qxPos = 850;
+    int qxPos = 700;
     int qyPos = 525;
     playVsPlayerButton->setPos(qxPos, qyPos);
     connect(playVsPlayerButton, SIGNAL(clicked()), this, SLOT(startPP()));
@@ -225,16 +225,15 @@ void Gui_Game::displayMainMenu()
 
     //Create the Play Button
     Button *playButton = new Button(QString("Play"));
-    int bxPos = 850;
+    int bxPos = 700;
     int byPos = 450;
     playButton->setPos(bxPos,byPos);
     connect(playButton, SIGNAL(clicked()),this,SLOT(opponentMenu()));
-
     scene->addItem(playButton);
-
+    
     //Create the Quit Button
     Button *closeButton = new Button(QString("Quit"));
-    int qxPos = 850;
+    int qxPos = 700;
     int qyPos = 525;
     closeButton->setPos(qxPos,qyPos);
     connect(closeButton,SIGNAL(clicked()),this,SLOT(close()));
