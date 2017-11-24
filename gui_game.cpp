@@ -81,7 +81,7 @@ void Gui_Game::opponentMenu()
     scene->addItem(title);
 
     QGraphicsPixmapItem* item;
-    QString path = ":/chessImg/MainWindowBackground.png";
+    QString path = "./chessImg/MainWindowBackground.png";
     item = new QGraphicsPixmapItem(path);
     item->setScale(1);
     item->setZValue(-1);
@@ -216,7 +216,7 @@ void Gui_Game::displayMainMenu()
 
 
     QGraphicsPixmapItem* item;
-    QString path = ":/chessImg/MainWindowBackground.png";
+    QString path = "./chessImg/MainWindowBackground.png";
     item = new QGraphicsPixmapItem(path);
    item->setScale(1);
    item->setZValue(-1);

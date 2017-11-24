@@ -76,5 +76,4 @@ DISTFILES += \
     chessImg/WhiteQueen.png \
     chessImg/WhiteRook.png \
     chessImg/MainWindowBackground.png \
-    chessImg/MainWindowBackground.png \
     chessImg/PlayBackground.png
