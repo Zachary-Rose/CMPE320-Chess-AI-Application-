@@ -1,7 +1,6 @@
 #include "gui_game.h"
 #include "square.h"
 #include "button.h"
-#include "deadList.h"
 #include "board.h"
 #include "ai.h"
 #include <QGraphicsTextItem>
@@ -28,6 +27,7 @@ Gui_Game::Gui_Game(QWidget *parent)
     iSquareSelected = -1;
     jSquareSelected = -1;
     pieceToMoveChar = EMPTY;
+
 }
 
 // Gui_Game::start() starts the Chess Game. It creates the board and draws the two pannels.
@@ -37,8 +37,8 @@ void Gui_Game::startAI()
     board = new ChessBoard();
     drawGUI();
     playMode = "AI";
-	deadList dead;
-	dead.showDead();
+	  ShowDead dead;
+	  dead.Render();
     //setCursor("./images/chessImg/BlackPawn.png");
 }
 
@@ -218,15 +218,14 @@ void Gui_Game::displayMainMenu()
     titleB->setPos(titleBxPos,titleByPos);
     titleB->setZValue(1);
     scene->addItem(titleB);
-\
 
 
     QGraphicsPixmapItem* item;
     QString path = "./chessImg/MainWindowBackground.png";
     item = new QGraphicsPixmapItem(path);
-   item->setScale(1);
-   item->setZValue(-1);
-   scene->addItem(item);
+    item->setScale(1);
+    item->setZValue(-1);
+    scene->addItem(item);
 
 
     //Create the Play Button

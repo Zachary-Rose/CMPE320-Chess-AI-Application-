@@ -66,12 +66,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_button.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_gui_game.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_gui_game.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,8 +90,14 @@
     <ClCompile Include="GeneratedFiles\Release\moc_square.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="deadList.cpp">
+    <ClCompile Include="show_dead.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_game.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_game.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +142,7 @@
     <ClInclude Include="move_io.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="deadList.h">
+    <ClInclude Include="show_dead.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

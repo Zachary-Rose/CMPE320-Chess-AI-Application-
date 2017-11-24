@@ -22,7 +22,6 @@ Logger chessPPLogger(LOG_LEVEL_INFO);
 Gui_Game* gui_game;
 Ai* gui_ai;
 
-
 // writes end of log file on application close
 void closeLogger(void)
 {

@@ -3,6 +3,7 @@
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
 #include "gui_board.h"
+#include "show_dead.h"
 
 /*Gui_Game class keeps track of the entire state of the game.
  *
@@ -58,5 +59,5 @@ private:
    int iSquareSelected; // the i value of the square that the user clicked on
    int jSquareSelected; // the j value of the square that the user clicked on
    char pieceToMoveChar;
-
+   ShowDead* showDead;
 };
