@@ -84,6 +84,18 @@
     <ClCompile Include="square.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_board.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_board.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_square.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_square.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="chesspp.qrc">
@@ -93,6 +105,12 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="gui_game.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_board.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="square.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -119,12 +137,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="move_io.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gui_board.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="square.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

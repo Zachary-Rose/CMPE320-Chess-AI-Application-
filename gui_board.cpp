@@ -31,7 +31,7 @@ ChessBoard::ChessBoard(){
             }
 
             //Choose what piece will be placed in each square.
-            QString pieceName = ":/chessImg/"; //path to the images in Resources folder.
+            QString pieceName = "./chessImg/"; //path to the images in Resources folder.
             if (j == 0){
                 pieceName = pieceName + nameblack[i] + "B";
             }else if(j == 1){
@@ -148,7 +148,7 @@ void ChessBoard::pickUpPiece(Square *sq)
         QString col;
         col = sq->getImgPath().mid(sq->getImgPath().size()-1,1); // gets the colour of the piece (the last letter in the path name)
         if (sq->getImgPath() != " "){
-            if ((col == "B" and gui_game->getWhosTurn() == "PLAYER1")||(col == "W" and gui_game->getWhosTurn() == "PLAYER2")){
+            if ((col == "B" && gui_game->getWhosTurn() == "PLAYER1")||(col == "W" && gui_game->getWhosTurn() == "PLAYER2")){
                 gui_game->setPieceToMove(true);
                 gui_game->setCursor(sq->getImgPath());
                 gui_game->setPathPieceToMove(sq->getImgPath());
