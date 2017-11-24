@@ -96,6 +96,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_square.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="deadList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="chesspp.qrc">
@@ -137,6 +140,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="move_io.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="deadList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
