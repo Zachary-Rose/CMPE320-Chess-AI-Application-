@@ -73,7 +73,7 @@ void ShowDead::Render() //shows taken pieces Images
 			imgfile = imgfile + "WhitePawnW.png";
 		whitePosition = j * 45 + 100; 
 		Image = new QGraphicsPixmapItem(imgfile);
-		Image->setPos(840, whitePosition);
+		Image->setPos(848, whitePosition);
 		Image->setScale(0.13);
 		Image->setZValue(1);
 		gui_game->scene->addItem(Image);

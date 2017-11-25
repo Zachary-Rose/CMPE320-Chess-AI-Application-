@@ -55,7 +55,7 @@ void Gui_Game::opponentMenu()
     scene->clear();
     //Create Title
 
-    QGraphicsTextItem *titleA = new QGraphicsTextItem(QString("Chess"));
+    QGraphicsTextItem *titleA = new QGraphicsTextItem(QString("Chess++"));
     QFont titleFontA ("Cambria",50);
     titleA->setFont(titleFontA);
     titleA->setDefaultTextColor(Qt::white);
@@ -125,10 +125,10 @@ void Gui_Game::drawGUI()
 	//deadList dead;
 	//dead.showDead();
     drawPanel(0,0,192,690,Qt::darkCyan,1);
-    drawPanel(832,0,192,690,Qt::darkCyan,1);
+    drawPanel(840,0,192,690,Qt::darkCyan,1);
 	
     whosTurnText = new QGraphicsTextItem();
-    setWhosTurn(QString("PLAYER1"));
+    setWhosTurn(QString("WHITE"));
     whosTurnText->setPos(490,0);
     scene->addItem(whosTurnText);
 
@@ -199,7 +199,7 @@ void Gui_Game::displayMainMenu()
 {
     //Create Title
 
-    QGraphicsTextItem *titleA = new QGraphicsTextItem(QString("Chess"));
+    QGraphicsTextItem *titleA = new QGraphicsTextItem(QString("Chess++"));
     QFont titleFontA ("Cambria",50);
     titleA->setFont(titleFontA);
     titleA->setDefaultTextColor(Qt::white);
@@ -264,10 +264,10 @@ void Gui_Game::setCursor(QString filename)
 
 void Gui_Game::changePlayer()
 {
-    if (whosTurn == QString("PLAYER1")){
-        whosTurn = QString("PLAYER2");
+    if (whosTurn == QString("WHITE")){
+        whosTurn = QString("BLACK");
     }else{
-        whosTurn = QString("PLAYER1");
+        whosTurn = QString("WHITE");
     }
     whosTurnText->setPlainText(QString("Whos' turn: ") + whosTurn);
 
