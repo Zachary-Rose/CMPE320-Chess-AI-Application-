@@ -43,6 +43,9 @@ private:
 	//needs move trying to be executed
 	bool isKingSafe(bool blackOrWhite, Move move);
 
+	//generates list of all legal moves if king is in check
+	std::vector<Move> SaveTheKing(bool blackOrWhite);
+
   // generates list of all legal rook moves
   std::vector<Move> GenerateRookMoves(int, int);
 

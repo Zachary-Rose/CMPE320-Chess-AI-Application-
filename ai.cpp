@@ -272,6 +272,51 @@ bool Ai::isKingSafe(bool blackOrWhite, Move move) {
 }
 
 //--------------------------------------------------------------------------------
+//assuming king in check, return list of all possible safe moves that can be done
+std::vector<Move> Ai::SaveTheKing(bool blackOrWhite)
+{
+	LOG_TRACE("std::vector<Move> SaveTheKing(bool blackOrWhite)");
+
+	std::vector<Move> allMoves = GenerateAllPossibleMoves();	//find all moves
+	std::vector<Move> savingMoves;								//safe moves that will be returned
+
+	for (auto& move : allMoves)	//for every move
+	{	
+		//if the piece being moved is the same colour as the king in check
+		if (!(blackOrWhite ^ PieceIsBlack(GameBoard.GetPieceByPosition(move.GetFromPiecePosition()))))
+		{	
+			//temporarily execute the move
+			GameBoard.SetPiece(move.GetToPiecePosition(), GameBoard.GetPieceByPosition(move.GetFromPiecePosition()));
+			GameBoard.SetPiece(move.GetFromPiecePosition(), ' ');
+
+			//get a list of moves now from the next turn
+			std::vector<Move> newMoves = GenerateAllPossibleMoves();
+
+			int safe = 0;
+			for (auto& newMove : newMoves)
+			{	//if the king of the input colour is still not safe, exit
+				
+
+				if (newMove.GetCapturedPiece() == (char)((int)W_KING + (((int)blackOrWhite) * 32)))
+				{
+					safe++;
+				}
+			}
+			//if the king is safe after this move, add it to the list of safe moves
+			if (!safe)
+			{
+				savingMoves.push_back(move);
+			}
+			//revert the temporary move
+			GameBoard.SetPiece(move.GetFromPiecePosition(), GameBoard.GetPieceByPosition(move.GetToPiecePosition()));
+			GameBoard.SetPiece(move.GetToPiecePosition(), move.GetCapturedPiece());
+		}
+	}
+	//if savingMoves is empty, no available moves therefore checkmate (or stalemate if the king is not currently in check)
+	return savingMoves;
+}
+
+//--------------------------------------------------------------------------------
 std::vector<Move> Ai::GenerateRookMoves(int i, int j) {
 	LOG_TRACE("Board::RookMechanics(int i, int j)");
 
