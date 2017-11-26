@@ -278,19 +278,20 @@ std::vector<Move> Ai::SaveTheKing(bool blackOrWhite)
 			int safe = 0;
 			for (auto& newMove : newMoves)
 			{	//if the king of the input colour is still not safe, exit
-				if (newMove.GetCapturedPiece == (B_KING - (((int)blackOrWhite) * 32)))	
+				
+
+				if (newMove.GetCapturedPiece() == (char)((int)W_KING + (((int)blackOrWhite) * 32)))
 				{
-					break;
+					safe++;
 				}
-				safe++;
 			}
 			//if the king is safe after this move, add it to the list of safe moves
-			if (safe == newMoves.size())
+			if (!safe)
 			{
 				savingMoves.push_back(move);
 			}
 			//revert the temporary move
-			GameBoard.SetPiece(move.GetFromPiecePosition(), GameBoard.GetPieceByPosition(move.GetFromPiecePosition()));
+			GameBoard.SetPiece(move.GetFromPiecePosition(), GameBoard.GetPieceByPosition(move.GetToPiecePosition()));
 			GameBoard.SetPiece(move.GetToPiecePosition(), move.GetCapturedPiece());
 		}
 	}
