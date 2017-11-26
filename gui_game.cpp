@@ -27,7 +27,7 @@ Gui_Game::Gui_Game(QWidget *parent)
     iSquareSelected = -1;
     jSquareSelected = -1;
     pieceToMoveChar = EMPTY;
-
+    showDead = new ShowDead();
 }
 
 // Gui_Game::start() starts the Chess Game. It creates the board and draws the two pannels.
@@ -37,9 +37,6 @@ void Gui_Game::startAI()
     board = new ChessBoard();
     drawGUI();
     playMode = "AI";
-	  ShowDead dead;
-	  dead.Render();
-    //setCursor("./images/chessImg/BlackPawn.png");
 }
 
 void Gui_Game::startPP()
@@ -122,8 +119,6 @@ void Gui_Game::drawPanel(int x, int y, int width, int height, QColor color, doub
 
 void Gui_Game::drawGUI()
 {
-	//deadList dead;
-	//dead.showDead();
     drawPanel(0,0,192,690,Qt::darkCyan,1);
     drawPanel(840,0,192,690,Qt::darkCyan,1);
 	
@@ -131,7 +126,13 @@ void Gui_Game::drawGUI()
     setWhosTurn(QString("WHITE"));
     whosTurnText->setPos(490,0);
     scene->addItem(whosTurnText);
+}
 
+void Gui_Game::addDeadPiece(char deadPiece)
+{
+  if (deadPiece != ' ') {
+    showDead->AddPiece(deadPiece);
+  }
 }
 
 QString Gui_Game::getWhosTurn()

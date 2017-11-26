@@ -31,6 +31,7 @@ public:
     void displayMainMenu();
     void setCursor(QString filename);
     void changePlayer();
+    void addDeadPiece(char deadPiece);
 
     //events
     void mouseMoveEvent(QMouseEvent *event);

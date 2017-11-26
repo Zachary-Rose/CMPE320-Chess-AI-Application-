@@ -103,6 +103,8 @@ char ChessBoard::getCharfromPath(QString path)
         return W_KNIGHT;
     }else if (pieceName == "WhitePawn"){
         return W_PAWN;
+    }else{
+      return EMPTY;
     }
 }
 
@@ -135,12 +137,12 @@ void ChessBoard::pickUpPiece(Square *sq)
         QString path = gui_game->getPathPieceToMove();
         int x1 = gui_game->get_iSquareSelected();
         int y1 = gui_game->get_jSquareSelected();
-        LOG_INFO("x1 " << x1);
-        LOG_INFO("y1 " << y1);
+
         int x2 = sq->getI();
         int y2 = sq->getJ();
         char c = gui_game->get_pieceToMoveChar();
         Move moveObj = Move(y1,x1,y2,x2,c);
+
         if (x1 == x2 && y1 == y2)
         {
           sq->removeImg(); // delete the piece that is curently on the square
@@ -154,6 +156,8 @@ void ChessBoard::pickUpPiece(Square *sq)
         }
         else if (gui_ai->IsMoveLegal(moveObj))
         {
+          char takenChar = getCharfromPath(sq->getImgPath());
+          gui_game->addDeadPiece(takenChar);
             sq->removeImg(); // delete the piece that is curently on the square
             sq->setImg(path,sq->getI()*sq->getSize() + 192,sq->getJ()*sq->getSize() + 40);
             sq->setImgPath(path);

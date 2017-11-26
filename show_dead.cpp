@@ -1,84 +1,87 @@
 #include "show_dead.h"
 #include "move.h"
 #include "gui_game.h"
-
+#include "common.h"
 // TODO: for testing
 #include <iostream>
 
 ShowDead::ShowDead()
 {
-  // TODO: For some simple testing...
-  Move m1(1, 1, 2, 1, 'Q');
-  AddPiece(m1);
-  Move m2(1, 1, 2, 1, 'n');
-  AddPiece(m2);
+  WhiteIndex = 0;
+  BlackIndex = 0;
 }
+
 extern Gui_Game* gui_game;
 
-void ShowDead::AddPiece(Move move) //adds taken pieces to QLists based on white or black
+void ShowDead::AddPiece(char deadPiece) //adds taken pieces to QLists based on white or black
 {
-	char deadPiece = move.GetCapturedPiece();
+  LOG_WARNING("deadPiece " << deadPiece);
+
 	if (deadPiece >= 97 && deadPiece <= 122)
   {
-    // deadPiece is lowecase, add to black
-		DeadBlack.append(deadPiece);
+    QString imgfile = "./chessImg/";
+    WhiteIndex++;
+    switch (deadPiece)
+    {
+      case 'k':
+        imgfile = imgfile + "BlackKingB.png";
+        break;
+      case 'q':
+        imgfile = imgfile + "BlackQueenB.png";
+        break;
+      case 'b':
+        imgfile = imgfile + "BlackBishopB.png";
+        break;
+      case 'r':
+        imgfile = imgfile + "BlackRookB.png";
+        break;
+      case 'n':
+        imgfile = imgfile + "BlackKnightB.png";
+        break;
+      case 'p':
+        imgfile = imgfile + "BlackPawnB.png";
+        break;
+    }
+    int renderPosition = WhiteIndex * 45 + 20;
+    QGraphicsPixmapItem* img = new QGraphicsPixmapItem(imgfile);
+    img->setPos(140, renderPosition);
+    img->setScale(0.13);
+    img->setZValue(1);
+    gui_game->scene->addItem(img);
 	}
 	else
   {
-    // deadpiece is uppercase, add to white
-		DeadWhite.append(deadPiece);
+    QString imgfile = "./chessImg/";
+    BlackIndex++;
+    switch (deadPiece)
+    {
+      case 'K':
+        imgfile = imgfile + "WhiteKingW.png";
+        break;
+      case 'Q':
+        imgfile = imgfile + "WhiteQueenW.png";
+        break;
+      case 'B':
+        imgfile = imgfile + "WhiteBishopW.png";
+        break;
+      case 'R':
+        imgfile = imgfile + "WhiteRookW.png";
+        break;
+      case 'N':
+        imgfile = imgfile + "WhiteKnightW.png";
+        break;
+      case 'P':
+        imgfile = imgfile + "WhitePawnW.png";
+        break;
+    }
+    int renderPosition = BlackIndex * 45 + 20;
+    QGraphicsPixmapItem* img = new QGraphicsPixmapItem(imgfile);
+    img->setPos(848, renderPosition);
+    img->setScale(0.13);
+    img->setZValue(1);
+    gui_game->scene->addItem(img);
 	}
-
-  Render();
 }
-
-void ShowDead::Render() //shows taken pieces Images
-{
-  std::cout << "SHOW DEAD" << std::endl; 
-	int i,j;//qlist index #s
-	int blackPosition, whitePosition; // y position of pieces
-	QString imgfile = "./chessImg/"; 
-	for (i = 0; i < DeadBlack.length(); i++) {
-		if (DeadBlack[i] == 'k')
-			imgfile = imgfile + "BlackKingB.png";
-		if (DeadBlack[i] == 'q')
-			imgfile = imgfile + "BlackQueenB.png";
-		if (DeadBlack[i] == 'b')
-			imgfile = imgfile + "BlackBishopB.png";
-		if (DeadBlack[i] == 'r')
-			imgfile = imgfile + "BlackRookB.png";
-		if (DeadBlack[i] == 'n')
-			imgfile = imgfile + "BlackKnightB.png";
-		if (DeadBlack[i] == 'p')
-			imgfile = imgfile + "BlackPawnB.png";
-		blackPosition = i * 45 + 100; //y position of pieces changes based on index # in qlist
-		Image = new QGraphicsPixmapItem(imgfile);
-		Image->setPos(140, blackPosition);
-		Image->setScale(0.13);
-		Image->setZValue(1);
-		gui_game->scene->addItem(Image);
-	}
-	for (j = 0; j < DeadWhite.length(); j++) {
-		if (DeadWhite[j] == 'K')
-			imgfile = imgfile + "WhiteKingW.png";
-		if (DeadWhite[j] == 'Q')
-			imgfile = imgfile + "WhiteQueenW.png";
-		if (DeadWhite[j] == 'B')
-			imgfile = imgfile + "WhiteBishopW.png";
-		if (DeadWhite[j] == 'R')
-			imgfile = imgfile + "WhiteRookW.png";
-		if (DeadWhite[j] == 'N')
-			imgfile = imgfile + "WhiteKnightW.png";
-		if (DeadWhite[j] == 'P')
-			imgfile = imgfile + "WhitePawnW.png";
-		whitePosition = j * 45 + 100; 
-		Image = new QGraphicsPixmapItem(imgfile);
-		Image->setPos(848, whitePosition);
-		Image->setScale(0.13);
-		Image->setZValue(1);
-		gui_game->scene->addItem(Image);
-	}
-} 
 
 
 
