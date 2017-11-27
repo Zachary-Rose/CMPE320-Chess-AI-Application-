@@ -193,10 +193,6 @@ void ChessBoard::pickUpPiece(Square *sq)
         }
     }
 
-    //std::cout << "ChessBoard::pickUPPiece(Square *sq)" << std::endl;
-    //std::cout <<sq->getImgPath().toUtf8().constData()<<std::endl;
-
-
 }
 
 

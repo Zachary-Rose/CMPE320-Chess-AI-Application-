@@ -2,6 +2,7 @@
 #include "move.h"
 #include "gui_game.h"
 #include "common.h"
+#include <QMessageBox>
 // TODO: for testing
 #include <iostream>
 
@@ -16,6 +17,25 @@ extern Gui_Game* gui_game;
 void ShowDead::AddPiece(char deadPiece) //adds taken pieces to QLists based on white or black
 {
   LOG_WARNING("deadPiece " << deadPiece);
+
+  if (deadPiece == 'k')
+  {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("White Wins!!!");
+    msgBox.setText("White pieces have won the game.");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
+    exit(0);
+  }
+  else if (deadPiece == 'K')
+  {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Black Wins!!!");
+    msgBox.setText("Black pieces have won the game.");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
+    exit(0);
+  }
 
 	if (deadPiece >= 97 && deadPiece <= 122)
   {
